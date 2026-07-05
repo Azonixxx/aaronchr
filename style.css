@@ -1,6 +1,3 @@
-/* =========================================================
-   TOKENS — DARK (default)
-   ========================================================= */
 :root,
 html[data-theme="dark"]{
   --bg:            #05080D;
@@ -23,9 +20,6 @@ html[data-theme="dark"]{
   --dot-opacity: 0.05;
 }
 
-/* =========================================================
-   TOKENS — LIGHT
-   ========================================================= */
 html[data-theme="light"]{
   --bg:            #F5FAFD;
   --bg-card:       #FFFFFF;
@@ -76,7 +70,7 @@ body{
   -webkit-font-smoothing:antialiased;
   transition:background-color .35s ease, color .35s ease;
 }
-/* subtle dot-grid texture, kept faint and theme-aware */
+
 body::before{
   content:"";
   position:fixed; inset:0; z-index:-1; pointer-events:none;
@@ -103,9 +97,7 @@ code{
   color:var(--skyblue);
 }
 
-/* =========================================================
-   NAV
-   ========================================================= */
+
 .nav{
   position:sticky; top:0; z-index:100;
   display:flex; align-items:center; gap:20px;
@@ -180,9 +172,7 @@ html[data-theme="light"] .theme-toggle__icon--sun{ opacity:1; }
   .nav__brand{ font-size:1rem; }
 }
 
-/* =========================================================
-   BUTTONS
-   ========================================================= */
+
 .btn{
   font-family:var(--font-body); font-weight:600; font-size:0.94rem; padding:13px 24px;
   border-radius:999px; border:1px solid transparent; cursor:pointer;
@@ -194,9 +184,7 @@ html[data-theme="light"] .theme-toggle__icon--sun{ opacity:1; }
 .btn--ghost{ border-color:var(--line); color:var(--text); background:transparent; }
 .btn--ghost:hover{ border-color:var(--maroon); color:var(--maroon); transform:translateY(-2px); }
 
-/* =========================================================
-   SHARED SECTION LAYOUT
-   ========================================================= */
+
 main{ max-width:var(--max-width); margin:0 auto; padding:0 var(--edge); }
 
 .section{ padding:96px 0; border-bottom:1px solid var(--line-soft); }
@@ -495,9 +483,7 @@ html[data-theme="dark"]  .hero__avatar-img--dark{  opacity:1; pointer-events:aut
 }
 .footer p{ margin:4px 0; }
 
-/* =========================================================
-   ZOOMABLE IMAGES (profile photo + certificates)
-   ========================================================= */
+
 .hero__avatar-img,
 .cert-card__frame img{
   cursor:zoom-in;
@@ -508,9 +494,7 @@ html[data-theme="dark"]  .hero__avatar-img--dark{  opacity:1; pointer-events:aut
   transform:scale(1.04);
 }
 
-/* =========================================================
-   LIGHTBOX
-   ========================================================= */
+
 .lightbox{
   position:fixed; inset:0; z-index:999;
   display:flex; align-items:center; justify-content:center;
@@ -549,9 +533,7 @@ html[data-theme="dark"]  .hero__avatar-img--dark{  opacity:1; pointer-events:aut
   .hero__avatar-img:hover, .cert-card__frame img:hover{ transform:none; }
 }
 
-/* =========================================================
-   SCROLL PROGRESS BAR
-   ========================================================= */
+
 .scroll-progress{
   position:fixed; top:0; left:0; height:3px; width:0%;
   background:linear-gradient(90deg, var(--cyan), var(--skyblue), var(--maroon));
@@ -559,9 +541,7 @@ html[data-theme="dark"]  .hero__avatar-img--dark{  opacity:1; pointer-events:aut
   transition:width .1s linear;
 }
 
-/* =========================================================
-   BACK TO TOP
-   ========================================================= */
+
 .back-to-top{
   position:fixed; bottom:28px; right:28px; z-index:90;
   width:48px; height:48px; border-radius:50%;
@@ -575,9 +555,7 @@ html[data-theme="dark"]  .hero__avatar-img--dark{  opacity:1; pointer-events:aut
 .back-to-top.is-visible{ opacity:1; visibility:visible; transform:translateY(0); }
 .back-to-top:hover{ border-color:var(--cyan); color:var(--cyan); transform:translateY(-3px); }
 
-/* =========================================================
-   NAV — active link + animated underline
-   ========================================================= */
+
 .nav__links a{ position:relative; padding-bottom:3px; }
 .nav__links a::after{
   content:""; position:absolute; left:0; bottom:-3px; width:0; height:2px;
@@ -588,9 +566,7 @@ html[data-theme="dark"]  .hero__avatar-img--dark{  opacity:1; pointer-events:aut
 .nav__links a.is-active::after{ width:100%; }
 .nav__links a.is-active{ color:var(--text); }
 
-/* =========================================================
-   REVEAL VARIANTS (direction per section for a livelier entrance)
-   ========================================================= */
+
 .reveal--left{ transform:translateX(-42px); }
 .reveal--left.is-visible{ transform:translateX(0); }
 
@@ -600,7 +576,7 @@ html[data-theme="dark"]  .hero__avatar-img--dark{  opacity:1; pointer-events:aut
 .reveal--scale{ transform:scale(0.88) translateY(14px); }
 .reveal--scale.is-visible{ transform:scale(1) translateY(0); }
 
-/* stagger: nth grid/list children so items don't all land at once */
+
 .skills-grid .reveal--scale:nth-child(1){ transition-delay:0ms; }
 .skills-grid .reveal--scale:nth-child(2){ transition-delay:80ms; }
 .skills-grid .reveal--scale:nth-child(3){ transition-delay:160ms; }
@@ -624,7 +600,7 @@ html[data-theme="dark"]  .hero__avatar-img--dark{  opacity:1; pointer-events:aut
 .cert-grid .reveal--scale:nth-child(7){ transition-delay:420ms; }
 .cert-grid .reveal--scale:nth-child(8){ transition-delay:490ms; }
 
-/* cascading list/chip items once their section (or card) has revealed */
+
 .seminar-list li,
 .chip-list .chip,
 .timeline__list li{
@@ -656,11 +632,7 @@ html[data-theme="dark"]  .hero__avatar-img--dark{  opacity:1; pointer-events:aut
 .chip-list .chip:nth-child(9){ transition-delay:320ms; }
 .chip-list .chip:nth-child(10){ transition-delay:360ms; }
 
-/* =========================================================
-   LIVELIER MICRO-INTERACTIONS
-   ========================================================= */
 
-/* floating hero chips — gentle drift so the hero feels alive */
 .hero__chip{ animation:float 5s ease-in-out infinite; }
 .hero__chip--1{ animation-delay:0s; }
 .hero__chip--2{ animation-delay:1.2s; }
@@ -670,7 +642,7 @@ html[data-theme="dark"]  .hero__avatar-img--dark{  opacity:1; pointer-events:aut
   50%{ transform:translateY(-8px); }
 }
 
-/* soft pulsing glow behind the avatar ring */
+
 .hero__avatar-ring::before{
   content:"";
   position:absolute; inset:-10px; border-radius:50%;
@@ -683,7 +655,7 @@ html[data-theme="dark"]  .hero__avatar-img--dark{  opacity:1; pointer-events:aut
   50%{ opacity:1; transform:scale(1.05); }
 }
 
-/* button shine sweep on hover */
+
 .btn--primary{ position:relative; overflow:hidden; }
 .btn--primary::before{
   content:"";
@@ -694,7 +666,7 @@ html[data-theme="dark"]  .hero__avatar-img--dark{  opacity:1; pointer-events:aut
 }
 .btn--primary:hover::before{ left:120%; }
 
-/* icon pop on card hover */
+
 .skill-card__icon, .badge__icon, .edu-card__icon{
   display:inline-block;
   transition:transform .3s cubic-bezier(.34,1.56,.64,1);
@@ -703,7 +675,7 @@ html[data-theme="dark"]  .hero__avatar-img--dark{  opacity:1; pointer-events:aut
 .badge:hover .badge__icon{ transform:scale(1.15) rotate(4deg); }
 .edu-card:hover .edu-card__icon{ transform:scale(1.15) rotate(3deg); }
 
-/* colored glow lift on hover for cards */
+
 .skill-card, .badge, .edu-card, .timeline__card, .cert-card__frame{
   transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
 }
@@ -713,10 +685,10 @@ html[data-theme="dark"]  .hero__avatar-img--dark{  opacity:1; pointer-events:aut
 .edu-card:hover{ transform:translateY(-4px); border-color:var(--skyblue); box-shadow:0 14px 34px rgba(56,189,248,0.14); }
 .cert-card:hover .cert-card__frame{ border-color:var(--cyan); box-shadow:0 14px 30px rgba(34,211,238,0.16); }
 
-/* chip lift on hover, matches other card interactions */
+
 .chip:hover{ transform:translateY(-2px); }
 
-/* theme-toggle press feedback */
+
 .theme-toggle:active::after{ transform:scale(0.9); }
 
 @media (prefers-reduced-motion: reduce){
@@ -725,11 +697,7 @@ html[data-theme="dark"]  .hero__avatar-img--dark{  opacity:1; pointer-events:aut
   .btn--primary::before{ display:none; }
 }
 
-/* =========================================================
-   TECH BACKGROUND — animated node network (canvas)
-   Sits behind the dot-grid texture and all content; theme-aware,
-   very low opacity so it reads as ambient atmosphere, not noise.
-   ========================================================= */
+
 #techBg{
   position:fixed;
   inset:0;
@@ -744,12 +712,7 @@ html[data-theme="light"] #techBg{ opacity:0.6; }
   #techBg{ opacity:0.45; }
 }
 
-/* =========================================================
-   THEME TOGGLE — circular reveal transition
-   Works with the View Transitions API where supported; the
-   #themeRipple element below is the fallback for browsers
-   that don't support it (e.g. Safari, Firefox).
-   ========================================================= */
+
 ::view-transition-group(root){
   animation-duration:650ms;
   animation-timing-function:cubic-bezier(.4,0,.2,1);

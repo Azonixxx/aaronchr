@@ -1,9 +1,7 @@
 (() => {
   const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------------------------------------------------
-     THEME TOGGLE (dark / light) + circular reveal animation
-  --------------------------------------------------- */
+
   const htmlEl = document.documentElement;
   const themeToggle = document.getElementById('themeToggle');
   const themeColorMeta = document.getElementById('themeColorMeta');
@@ -37,7 +35,6 @@
   function toggleThemeWithReveal() {
     const next = htmlEl.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
 
-    // Work out the click origin so the reveal expands from the button itself.
     const rect = themeToggle.getBoundingClientRect();
     const x = rect.left + rect.width / 2;
     const y = rect.top + rect.height / 2;
@@ -52,8 +49,7 @@
       return;
     }
 
-    // Preferred path: native View Transitions API animates the actual
-    // page content (not just a color swap) expanding from the button.
+
     if (typeof document.startViewTransition === 'function') {
       htmlEl.style.setProperty('--theme-x', `${x}px`);
       htmlEl.style.setProperty('--theme-y', `${y}px`);
@@ -66,9 +62,6 @@
       return;
     }
 
-    // Fallback for browsers without View Transitions support
-    // (e.g. Safari, Firefox): animate a solid overlay outward from
-    // the button, swap the theme underneath, then let it shrink away.
     if (themeRipple) {
       themeRipple.style.transition = 'none';
       themeRipple.style.background = themeBgColor(htmlEl.getAttribute('data-theme'));
@@ -78,8 +71,7 @@
       applyTheme(next);
       storeTheme(next);
 
-      // Force a reflow so the browser registers the starting clip-path
-      // before we transition it back down to nothing.
+
       void themeRipple.offsetHeight;
       themeRipple.style.transition = '';
       requestAnimationFrame(() => {
@@ -99,9 +91,7 @@
 
   themeToggle.addEventListener('click', toggleThemeWithReveal);
 
-  /* ---------------------------------------------------
-     MOBILE NAV TOGGLE
-  --------------------------------------------------- */
+
   const navToggle = document.getElementById('navToggle');
   const navLinks = document.getElementById('navLinks');
 
@@ -116,9 +106,7 @@
     });
   });
 
-  /* ---------------------------------------------------
-     GENTLE SCROLL REVEAL
-  --------------------------------------------------- */
+
   const revealTargets = document.querySelectorAll('.reveal');
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -130,14 +118,12 @@
   }, { threshold: 0.15 });
   revealTargets.forEach(el => revealObserver.observe(el));
 
-  // Hero elements reveal immediately (staggered) since they're visible on load
+
   document.querySelectorAll('.hero .reveal').forEach((el, i) => {
     setTimeout(() => el.classList.add('is-visible'), 120 * i);
   });
 
-  /* ---------------------------------------------------
-     CONTACT FORM (mailto handoff)
-  --------------------------------------------------- */
+
   const contactForm = document.getElementById('contactForm');
   const contactStatus = document.getElementById('contactStatus');
 
@@ -156,14 +142,10 @@
     setTimeout(() => { contactStatus.textContent = ''; }, 4000);
   });
 
-  /* ---------------------------------------------------
-     FOOTER YEAR
-  --------------------------------------------------- */
+
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  /* ---------------------------------------------------
-     LIGHTBOX (zoom-in for profile photo + certificates)
-  --------------------------------------------------- */
+
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightboxImg');
   const lightboxClose = document.getElementById('lightboxClose');
@@ -196,9 +178,7 @@
     if (e.key === 'Escape') closeLightbox();
   });
 
-  /* ---------------------------------------------------
-     SCROLL PROGRESS BAR
-  --------------------------------------------------- */
+
   const scrollProgress = document.getElementById('scrollProgress');
   function updateScrollProgress() {
     const scrollTop = window.scrollY;
@@ -207,9 +187,7 @@
     scrollProgress.style.width = pct + '%';
   }
 
-  /* ---------------------------------------------------
-     BACK TO TOP BUTTON
-  --------------------------------------------------- */
+
   const backToTop = document.getElementById('backToTop');
   function updateBackToTop() {
     if (window.scrollY > 480) {
@@ -222,9 +200,7 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
-  /* ---------------------------------------------------
-     SCROLLSPY (highlight active nav link)
-  --------------------------------------------------- */
+
   const navAnchors = Array.from(navLinks.querySelectorAll('a[href^="#"]'));
   const spySections = navAnchors
     .map(a => document.querySelector(a.getAttribute('href')))
@@ -242,9 +218,7 @@
 
   spySections.forEach(section => spyObserver.observe(section));
 
-  /* ---------------------------------------------------
-     SCROLL LISTENER (throttled via rAF)
-  --------------------------------------------------- */
+
   let scrollTicking = false;
   function onScroll() {
     if (!scrollTicking) {
@@ -260,14 +234,7 @@
   updateScrollProgress();
   updateBackToTop();
 
-  /* ---------------------------------------------------
-     TECH BACKGROUND — ambient node network on canvas
-     A drifting node network, styled from the same cyan/
-     skyblue/maroon tokens as the rest of the page, that
-     gently reacts to the cursor: nearby nodes get nudged
-     away and link up to a small cursor hub. Pauses on
-     hidden tabs and respects reduced motion.
-  --------------------------------------------------- */
+
   const techCanvas = document.getElementById('techBg');
   if (techCanvas && techCanvas.getContext) {
     const ctx = techCanvas.getContext('2d');
@@ -279,12 +246,11 @@
     let pulseColor = '#B32C42';
     let pulses = [];
 
-    // Cursor interaction state. targetMouse follows the pointer directly;
-    // mouse eases toward it so the effect feels fluid rather than jumpy.
+
     const isCoarsePointer = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
     let targetMouseX = null, targetMouseY = null;
     let mouseX = null, mouseY = null;
-    let mouseInfluence = 0; // eases 0→1 on entry, 1→0 when the pointer leaves
+    let mouseInfluence = 0; 
     const interactionRadius = 150;
 
     function readCssVar(name, fallback) {
@@ -297,7 +263,7 @@
       dotColor = readCssVar('--skyblue', '#38BDF8');
       pulseColor = readCssVar('--maroon', '#B32C42');
     }
-    // Exposed so applyTheme() can refresh colors right after a theme swap.
+
     window.__refreshTechBgPalette = refreshPalette;
 
     function hexToRgba(hex, alpha) {
@@ -333,8 +299,7 @@
     }
 
     function maybeSpawnPulse(linkDist) {
-      // Occasionally send a small "data packet" travelling along a live link,
-      // just enough to read as a network rather than a static starfield.
+
       if (reduceMotion) return;
       if (pulses.length > 3) return;
       if (Math.random() > 0.012) return;
@@ -354,8 +319,7 @@
       ctx.clearRect(0, 0, w, h);
       const linkDist = 130;
 
-      // Ease the rendered cursor position and its influence toward target,
-      // so the network reacts smoothly rather than snapping to the pointer.
+
       if (targetMouseX !== null) {
         mouseX = mouseX === null ? targetMouseX : mouseX + (targetMouseX - mouseX) * 0.18;
         mouseY = mouseY === null ? targetMouseY : mouseY + (targetMouseY - mouseY) * 0.18;
@@ -373,8 +337,7 @@
         if (!reduceMotion) {
           p.x += p.vx; p.y += p.vy;
 
-          // Gentle repulsion: nodes drift away from a nearby cursor, then
-          // resume their normal ambient motion once it moves on.
+
           if (mouseX !== null && mouseInfluence > 0.01) {
             const dxm = p.x - mouseX, dym = p.y - mouseY;
             const dm = Math.sqrt(dxm * dxm + dym * dym);
@@ -410,8 +373,7 @@
         ctx.fill();
       }
 
-      // Cursor hub: nearby nodes link up to the pointer itself, so the
-      // network visibly acknowledges it without a distracting glow.
+
       if (mouseX !== null && mouseInfluence > 0.01) {
         for (const p of particles) {
           const dx = p.x - mouseX, dy = p.y - mouseY;
@@ -459,8 +421,7 @@
     resizeCanvas();
     draw();
 
-    // Skip cursor interaction on touch devices — there's no hover state
-    // to react to, and it would just chase the last tap.
+
     if (!isCoarsePointer) {
       window.addEventListener('pointermove', (e) => {
         targetMouseX = e.clientX;
