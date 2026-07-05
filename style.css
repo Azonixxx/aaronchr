@@ -275,7 +275,11 @@ main{ max-width:var(--max-width); margin:0 auto; padding:0 var(--edge); }
 }
 .hero__avatar-img{
   position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:2;
+  opacity:0;
+  pointer-events:none;
 }
+html[data-theme="light"] .hero__avatar-img--light{ opacity:1; pointer-events:auto; }
+html[data-theme="dark"]  .hero__avatar-img--dark{  opacity:1; pointer-events:auto; }
 .hero__avatar-placeholder{
   position:absolute; inset:0; z-index:1;
   display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
@@ -497,7 +501,7 @@ main{ max-width:var(--max-width); margin:0 auto; padding:0 var(--edge); }
 .hero__avatar-img,
 .cert-card__frame img{
   cursor:zoom-in;
-  transition:transform .3s ease;
+  transition:transform .3s ease, opacity .6s ease;
 }
 .hero__avatar-img:hover,
 .cert-card__frame img:hover{
