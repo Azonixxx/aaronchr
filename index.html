@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aaron — IT Support Specialist</title>
+<meta name="description" content="Portfolio of Aaron Christian F. Malubay, IT Support Specialist based in Metro Manila.">
+<meta name="theme-color" content="#05080D" id="themeColorMeta">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="techBg" aria-hidden="true"></canvas>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+
+<header class="nav" id="siteHeader">
+  <a href="#top" class="nav__brand">Aaron <span>CHR</span></a>
+
+  <nav class="nav__links" id="navLinks" aria-label="Primary">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#education">Education</a>
+    <a href="#honors">Awards</a>
+    <a href="#certificates">Certificates</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <button class="theme-toggle" id="themeToggle" aria-label="Switch to light mode" aria-pressed="false">
+    <span class="theme-toggle__icon theme-toggle__icon--moon">🌙</span>
+    <span class="theme-toggle__icon theme-toggle__icon--sun">☀️</span>
+  </button>
+
+  <a href="#contact" class="btn btn--primary nav__cta">Let's talk</a>
+
+  <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__glow" aria-hidden="true"></div>
+    <div class="hero__content">
+      <p class="eyebrow reveal">👋 Hi, I'm</p>
+      <h1 class="hero__name reveal">Aaron Christian Malubay</h1>
+      <p class="hero__role reveal">IT Support Specialist</p>
+      <p class="hero__tagline reveal">
+        I help people and their computers get along. Whether it's a laptop that
+        won't boot, a network camera that's gone dark, or a website that needs
+        updating — I enjoy figuring it out and getting things working again.
+        Based in Metro Manila, and happy to explain things in Filipino or English.
+      </p>
+      <div class="hero__ctas reveal">
+        <a class="btn btn--primary" href="#contact">Let's talk</a>
+        <a class="btn btn--ghost" href="#experience">See my experience</a>
+      </div>
+      <ul class="hero__badges reveal">
+        <li><span class="hero__badge-num">1+ yr</span>IT Support Experience</li>
+        <li><span class="hero__badge-num">Cum Laude</span>UDM, 2025</li>
+        <li><span class="hero__badge-num">BSIT</span>Information Technology</li>
+      </ul>
+    </div>
+    <div class="hero__avatar reveal">
+      <div class="hero__avatar-ring" aria-hidden="true"></div>
+      <div class="hero__avatar-inner">
+        <img src="assets/profile.jpg" alt="Photo of Aaron Christian Malubay" class="hero__avatar-img" onerror="this.style.display='none'">
+        <div class="hero__avatar-placeholder">
+          <span class="hero__avatar-placeholder-icon">📷</span>
+          <span class="hero__avatar-placeholder-text">Add<br><code>assets/profile.jpg</code></span>
+        </div>
+      </div>
+      <span class="hero__chip hero__chip--1" aria-hidden="true">🛠️ Hardware</span>
+      <span class="hero__chip hero__chip--2" aria-hidden="true">💻 Software</span>
+      <span class="hero__chip hero__chip--3" aria-hidden="true">🎨 Design</span>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section reveal">
+    <p class="section__label">About me</p>
+    <h2 class="section__title">A bit of my story</h2>
+    <div class="about__card">
+      <p>
+        I'm an IT Support professional with a year of hands-on experience keeping
+        computers, networks, and the people who use them running smoothly. I've
+        picked up real, practical skills in troubleshooting, system maintenance,
+        and just being the calm person in the room when tech stops cooperating.
+      </p>
+      <p>
+        I like learning new tools before I'm asked to, and I genuinely enjoy the
+        moment when something that was broken starts working again. My goal is
+        simple, keep using my problem-solving skills to help teams and people
+        with real, everyday tech challenges — and have fun while I'm at it.
+      </p>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="section reveal">
+    <p class="section__label">Experience</p>
+    <h2 class="section__title">Where I've worked</h2>
+
+    <div class="timeline">
+      <article class="timeline__card reveal reveal--left">
+        <div class="timeline__card-top">
+          <div class="timeline__icon">🖥️</div>
+          <div>
+            <p class="timeline__role">IT Support Staff — OJT &amp; Part-Time</p>
+            <p class="timeline__company">TriAxis Computer Systems Technology Inc. · Makati City</p>
+          </div>
+          <span class="tag tag--live">Current</span>
+        </div>
+        <p class="timeline__dates">February 2025 – Present</p>
+        <ul class="timeline__list">
+          <li>Fixed and fine-tuned laptops and desktops so clients had fewer repeat problems.</li>
+          <li>Set up Microsoft Office on multiple computers, ready for people to start working right away.</li>
+          <li>Upgraded client machines by cloning drives and migrating from HDD to SSD, without losing any of their data.</li>
+          <li>Installed, set up, and troubleshot CCTV systems for clients.</li>
+          <li>Installed Windows on multiple computers using bootable USB drives.</li>
+          <li>Created social media content and helped grow the company's online audience.</li>
+          <li>Kept the company website up to date using WordPress and the Divi editor.</li>
+        </ul>
+      </article>
+
+      <article class="timeline__card reveal reveal--right">
+        <div class="timeline__card-top">
+          <div class="timeline__icon">💬</div>
+          <div>
+            <p class="timeline__role">Online Moderator (Discord)</p>
+            <p class="timeline__company">Blockchain Infinity Group · Work-from-home</p>
+          </div>
+          <span class="tag tag--past">Past role</span>
+        </div>
+        <p class="timeline__dates">July 2020 – August 2022</p>
+        <ul class="timeline__list">
+          <li>Facilitated discussions and helped keep an online community safe, welcoming, and inclusive.</li>
+          <li>Explained blockchain basics to beginners through posts and live Q&amp;A sessions.</li>
+          <li>Designed project posters in Adobe Photoshop to boost engagement.</li>
+          <li>Moderated content and enforced community guidelines.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="section reveal">
+    <p class="section__label">Skills</p>
+    <h2 class="section__title">What I'm good at</h2>
+
+    <div class="skills-grid">
+      <div class="skill-card reveal reveal--scale">
+        <div class="skill-card__icon">🔧</div>
+        <p class="skill-card__title">Hardware repair &amp; setup</p>
+        <p class="skill-card__desc">Assembling, configuring, and troubleshooting PC hardware, plus any type of upgrades.</p>
+      </div>
+      <div class="skill-card reveal reveal--scale">
+        <div class="skill-card__icon">🪟</div>
+        <p class="skill-card__title">Software &amp; OS installation</p>
+        <p class="skill-card__desc">Installing Windows and everyday software, and solving the issues that come up along the way.</p>
+      </div>
+      <div class="skill-card reveal reveal--scale">
+        <div class="skill-card__icon">📷</div>
+        <p class="skill-card__title">CCTV &amp; network setup</p>
+        <p class="skill-card__desc">Installing and troubleshooting surveillance systems and basic connectivity issues.</p>
+      </div>
+      <div class="skill-card reveal reveal--scale">
+        <div class="skill-card__icon">🌐</div>
+        <p class="skill-card__title">Website upkeep</p>
+        <p class="skill-card__desc">Managing and updating websites with WordPress and the Divi editor, plus the fundamentals of HTML, CSS &amp; JavaScript.</p>
+      </div>
+      <div class="skill-card reveal reveal--scale">
+        <div class="skill-card__icon">🎨</div>
+        <p class="skill-card__title">Content &amp; design</p>
+        <p class="skill-card__desc">Creating marketing graphics and videos with Canva, Adobe Photoshop, and AI tools.</p>
+      </div>
+      <div class="skill-card reveal reveal--scale">
+        <div class="skill-card__icon">🤝</div>
+        <p class="skill-card__title">People &amp; communication</p>
+        <p class="skill-card__desc">Clear communication in Filipino and English, and a dependable, cooperative teammate.</p>
+      </div>
+    </div>
+
+    <div class="tools">
+      <p class="tools__label">Tools &amp; software I use</p>
+      <ul class="chip-list">
+        <li class="chip">ChatGPT</li>
+        <li class="chip">Gemini</li>
+        <li class="chip">Claude</li>
+        <li class="chip">Microsoft Office</li>
+        <li class="chip">Adobe Photoshop</li>
+        <li class="chip">Canva</li>
+        <li class="chip">WordPress &amp; Divi</li>
+        <li class="chip">AI research tools</li>
+        <li class="chip">AI voice tools</li>
+        <li class="chip">HTML / CSS / JS </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education" class="section reveal">
+    <p class="section__label">Education</p>
+    <h2 class="section__title">Where I studied</h2>
+
+    <div class="edu-grid">
+      <div class="edu-card reveal reveal--scale">
+        <div class="edu-card__icon"></div>
+        <p class="edu-card__degree">Bachelor of Science in Information Technology</p>
+        <p class="edu-card__school">
+        <a href="https://udmwebsite.udm.edu.ph/" target="_blank" rel="noopener noreferrer">
+          Universidad De Manila
+        </a>
+        </p>
+        <p class="edu-card__meta">2021 – 2025</p>
+        <p class="edu-card__addr">659-A Cecilia Muñoz St, Ermita, Manila, 1000 Metro Manila</p>
+      </div>
+      <div class="edu-card reveal reveal--scale">
+        <div class="edu-card__icon"></div>
+        <p class="edu-card__degree">Senior High School</p>
+        <p class="edu-card__school">
+        <a href="https://abe.edu.ph/" target="_blank" rel="noopener noreferrer">
+          ABE International Business College
+        </a>
+        </p>
+        <p class="edu-card__meta">2019 – 2021</p>
+        <p class="edu-card__addr">2578 Legarda St, Sampaloc, Manila, 1008 Metro Manila</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HONORS -->
+  <section id="honors" class="section reveal">
+    <p class="section__label">Recognition</p>
+    <h2 class="section__title">Honors &amp; awards</h2>
+
+    <div class="badge-grid">
+      <div class="badge reveal reveal--scale">
+        <div class="badge__icon"></div>
+        <p class="badge__title">Cum Laude Graduate</p>
+        <p class="badge__meta">Universidad De Manila · S.Y. 2021–2025</p>
+      </div>
+      <div class="badge reveal reveal--scale">
+        <div class="badge__icon"></div>
+        <p class="badge__title">Consistent Dean's Lister</p>
+        <p class="badge__meta">Universidad De Manila · S.Y. 2021–2025</p>
+      </div>
+      <div class="badge reveal reveal--scale">
+        <div class="badge__icon"></div>
+        <p class="badge__title">With Honors</p>
+        <p class="badge__meta">ABE International Business College · S.Y. 2019–2021</p>
+      </div>
+    </div>
+
+    <p class="section__label" style="margin-top:56px;">Also learning</p>
+    <h2 class="section__title">Seminars &amp; workshops</h2>
+    <ul class="seminar-list">
+      <li><span class="seminar-list__date">Nov 2023</span>GIT: From Zero to Hero <span class="seminar-list__src">— Universidad De Manila</span></li>
+      <li><span class="seminar-list__date">Dec 2023</span>The Power of ChatGPT in Society <span class="seminar-list__src">— Universidad De Manila</span></li>
+      <li><span class="seminar-list__date">Dec 2023</span>Maximizing Adobe's Gen AI for Social Media Management <span class="seminar-list__src">— DICT, via Zoom</span></li>
+      <li><span class="seminar-list__date">Mar 2024</span>Generative AI <span class="seminar-list__src">— Mapúa University, via Zoom</span></li>
+      <li><span class="seminar-list__date">Mar 2024</span>Leveraging AI Tools in Academic Writing <span class="seminar-list__src">— DICT, via Zoom</span></li>
+      <li><span class="seminar-list__date">Apr 2024</span>Guardians of Privacy: Nurturing Data Awareness <span class="seminar-list__src">— DICT, via Zoom</span></li>
+      <li><span class="seminar-list__date">May 2024</span>The Vision of 6G Networks in the Future <span class="seminar-list__src">— DICT, via Zoom</span></li>
+      <li><span class="seminar-list__date">May 2024</span>Understanding the Basics of Technopreneurship <span class="seminar-list__src">— DICT, via Zoom</span></li>
+    </ul>
+  </section>
+
+  <!-- CERTIFICATES -->
+  <section id="certificates" class="section reveal">
+    <p class="section__label">Proof of work</p>
+    <h2 class="section__title">Certificates</h2>
+    <p class="certificates__intro">Scans of certificates from the trainings above.</p>
+
+    <div class="cert-grid">
+      <figure class="cert-card reveal reveal--scale">
+        <div class="cert-card__frame">
+          <img src="assets/certificates/git-fundamentals.jpg" alt="Certificate — GIT: From Zero to Hero" onerror="this.style.display='none'">
+          <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
+        </div>
+        <figcaption>GIT: From Zero to Hero <small>Nov 2023</small></figcaption>
+      </figure>
+      <figure class="cert-card reveal reveal--scale">
+        <div class="cert-card__frame">
+          <img src="assets/certificates/chatgpt-society.jpg" alt="Certificate — The Power of ChatGPT in Society" onerror="this.style.display='none'">
+          <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
+        </div>
+        <figcaption>The Power of ChatGPT in Society <small>Dec 2023</small></figcaption>
+      </figure>
+      <figure class="cert-card reveal reveal--scale">
+        <div class="cert-card__frame">
+          <img src="assets/certificates/adobe-genai.jpg" alt="Certificate — Maximizing Adobe's Gen AI for Social Media Management" onerror="this.style.display='none'">
+          <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
+        </div>
+        <figcaption>Adobe's Gen AI for Social Media <small>Dec 2023</small></figcaption>
+      </figure>
+      <figure class="cert-card reveal reveal--scale">
+        <div class="cert-card__frame">
+          <img src="assets/certificates/generative-ai.jpg" alt="Certificate — Generative AI" onerror="this.style.display='none'">
+          <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
+        </div>
+        <figcaption>Generative AI <small>Mar 2024</small></figcaption>
+      </figure>
+      <figure class="cert-card reveal reveal--scale">
+        <div class="cert-card__frame">
+          <img src="assets/certificates/ai-academic-writing.jpg" alt="Certificate — Leveraging AI Tools in Academic Writing" onerror="this.style.display='none'">
+          <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
+        </div>
+        <figcaption>AI Tools in Academic Writing <small>Mar 2024</small></figcaption>
+      </figure>
+      <figure class="cert-card reveal reveal--scale">
+        <div class="cert-card__frame">
+          <img src="assets/certificates/data-privacy.jpg" alt="Certificate — Guardians of Privacy: Nurturing Data Awareness" onerror="this.style.display='none'">
+          <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
+        </div>
+        <figcaption>Guardians of Privacy <small>Apr 2024</small></figcaption>
+      </figure>
+      <figure class="cert-card reveal reveal--scale">
+        <div class="cert-card__frame">
+          <img src="assets/certificates/6g-networks.jpg" alt="Certificate — The Vision of 6G Networks in the Future" onerror="this.style.display='none'">
+          <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
+        </div>
+        <figcaption>The Vision of 6G Networks <small>May 2024</small></figcaption>
+      </figure>
+      <figure class="cert-card reveal reveal--scale">
+        <div class="cert-card__frame">
+          <img src="assets/certificates/technopreneurship.jpg" alt="Certificate — Understanding the Basics of Technopreneurship" onerror="this.style.display='none'">
+          <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
+        </div>
+        <figcaption>Basics of Technopreneurship <small>May 2024</small></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section reveal">
+    <p class="section__label">Contact</p>
+    <h2 class="section__title">Let's work together</h2>
+    <p class="contact__intro">Have a role in mind, or just want to say hi? Send me a message below.</p>
+
+    <div class="contact__grid">
+      <form class="contact__form" id="contactForm">
+        <label class="field">
+          <span>Your name</span>
+          <input type="text" name="name" placeholder="Juan Dela Cruz" required>
+        </label>
+        <label class="field">
+          <span>Your email</span>
+          <input type="email" name="email" placeholder="name@example.com" required>
+        </label>
+        <label class="field">
+          <span>Message</span>
+          <textarea name="message" rows="4" placeholder="Let's talk about..." required></textarea>
+        </label>
+        <button type="submit" class="btn btn--primary">Send message</button>
+        <p class="contact__status" id="contactStatus" aria-live="polite"></p>
+      </form>
+
+      <div class="contact__direct">
+        <p class="contact__direct-label">Direct channels</p>
+        <a class="contact__link" href="mailto:aaron.malubay@gmail.com">
+          <span class="contact__link-icon">✉️</span> aaron.malubay@gmail.com
+        </a>
+        <a class="contact__link" href="https://www.linkedin.com/in/aaronmalubay/" target="_blank" rel="noopener">
+          <span class="contact__link-icon">🔗</span> linkedin.com/in/aaronmalubay
+        </a>
+        <a class="contact__link" href="https://github.com/Azonixxx" target="_blank" rel="noopener">
+          <span class="contact__link-icon">💻</span> github.com/Azonixxx
+        </a>
+        <p class="contact__note">📍 Metro Manila, Philippines — open to on-site &amp; hybrid IT roles</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p>Designed & Crafted by Aaron CHR</p>
+  <p>© <span id="year"></span> — All rights reserved</p>
+</footer>
+
+<!-- LIGHTBOX (used to zoom into the profile photo and certificates) -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox__close" id="lightboxClose" aria-label="Close image">✕</button>
+  <img src="" alt="" class="lightbox__img" id="lightboxImg">
+</div>
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+<!-- Overlay used for the theme-toggle reveal animation (fallback path) -->
+<div id="themeRipple" aria-hidden="true"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
