@@ -111,8 +111,19 @@
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     let w, h, nodes = [], animId;
-    const NODE_COUNT = 50;
+    let mouseX = -1000, mouseY = -1000;
+    const NODE_COUNT = 60;
     const CONNECT_DIST = 140;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    }, { passive: true });
+
+    window.addEventListener('mouseleave', () => {
+      mouseX = -1000;
+      mouseY = -1000;
+    });
 
     function resize() {
       w = canvas.width = window.innerWidth;
@@ -135,8 +146,8 @@
     function getColor() {
       const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
       return isDark
-        ? { node: 'rgba(34,211,238,0.35)', line: 'rgba(34,211,238,0.08)' }
-        : { node: 'rgba(11,127,196,0.25)', line: 'rgba(11,127,196,0.06)' };
+        ? { node: 'rgba(34,211,238,0.4)', line: 'rgba(34,211,238,0.1)' }
+        : { node: 'rgba(11,127,196,0.3)', line: 'rgba(11,127,196,0.08)' };
     }
 
     function draw() {
@@ -145,6 +156,14 @@
 
       // Update positions
       for (const n of nodes) {
+        const dx = mouseX - n.x;
+        const dy = mouseY - n.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 150) {
+          n.x -= (dx / dist) * 1.5;
+          n.y -= (dy / dist) * 1.5;
+        }
+
         n.x += n.vx;
         n.y += n.vy;
         if (n.x < 0 || n.x > w) n.vx *= -1;
@@ -515,6 +534,7 @@
      ═══════════════════════════════════════════════════════ */
   function initParallax() {
     if (prefersReducedMotion()) return;
+    if (window.innerWidth <= 768) return; // Disable parallax on mobile
 
     const els = $$('.parallax-el');
     if (!els.length) return;
@@ -806,6 +826,8 @@
       }
     });
   }
+
+
 
 
   /* ═══════════════════════════════════════════════════════
