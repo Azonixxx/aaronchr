@@ -8,6 +8,8 @@
   const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   const prefersReducedMotion = () =>
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isFinePointer = () =>
+    window.matchMedia('(pointer:fine)').matches && window.matchMedia('(min-width:900px)').matches;
 
   /* ═══════════════════════════════════════════════════════
      1. LOADER — IT BOOT SEQUENCE
@@ -38,7 +40,6 @@
     }
 
     const totalLines = bootLines.length;
-    const totalDuration = 2600; // ms from first line to 100%
 
     // Add cursor to body
     const cursor = document.createElement('span');
@@ -226,7 +227,7 @@
         html.style.setProperty('--theme-y', y + 'px');
         html.style.setProperty('--theme-r', r + 'px');
 
-        const transition = document.startViewTransition(() => {
+        document.startViewTransition(() => {
           html.setAttribute('data-theme', next);
         });
       } else {
@@ -290,15 +291,14 @@
 
 
   /* ═══════════════════════════════════════════════════════
-     6. NAV ACTIVE STATE
+     6. NAV ACTIVE STATE (top nav + chapter rail)
      ═══════════════════════════════════════════════════════ */
   function initNavActive() {
     const links = $$('.nav__links a');
-    const sections = links
-      .map((a) => {
-        const id = a.getAttribute('href').replace('#', '');
-        return document.getElementById(id);
-      })
+    const railLinks = $$('.chapter-rail__list a');
+    const allSectionIds = ['top', 'about', 'experience', 'skills', 'education', 'honors', 'certificates', 'contact'];
+    const sections = allSectionIds
+      .map((id) => document.getElementById(id))
       .filter(Boolean);
 
     function update() {
@@ -311,8 +311,13 @@
         }
       });
 
-      links.forEach((a, i) => {
-        a.classList.toggle('is-active', i === activeIdx);
+      const activeId = activeIdx >= 0 ? sections[activeIdx].id : 'top';
+
+      links.forEach((a) => {
+        a.classList.toggle('is-active', a.getAttribute('href') === '#' + activeId);
+      });
+      railLinks.forEach((a) => {
+        a.classList.toggle('is-active', a.dataset.target === activeId);
       });
     }
 
@@ -406,18 +411,25 @@
      ═══════════════════════════════════════════════════════ */
   function initContactForm() {
     const form = $('#contactForm');
-    const status = $('#contactStatus');
+    const statusText = $('#contactStatusText');
+    const check = $('#contactCheck');
     if (!form) return;
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      if (status) {
-        status.textContent = '✅ Thanks for your message! I\'ll get back to you soon.';
-        status.style.color = 'var(--cyan)';
+      if (statusText) {
+        statusText.textContent = "Thanks for your message! I'll get back to you soon.";
+      }
+      if (check) {
+        // restart animation
+        check.classList.remove('is-visible');
+        void check.offsetWidth;
+        check.classList.add('is-visible');
       }
       form.reset();
       setTimeout(() => {
-        if (status) status.textContent = '';
+        if (statusText) statusText.textContent = '';
+        if (check) check.classList.remove('is-visible');
       }, 5000);
     });
   }
@@ -436,14 +448,13 @@
      12. HORIZONTAL SCROLL — SKILLS SECTION
      ═══════════════════════════════════════════════════════ */
   function initHorizontalScroll() {
-    const section = $('.hscroll-section');
+    const section = $('.hscroll-section:not(.hscroll-section--certs)');
     const track = $('#skillsTrack');
     const fill = $('#hscrollFill');
     const hint = $('.hscroll-hint');
 
     if (!section || !track) return;
 
-    // Don't activate on mobile
     const mq = window.matchMedia('(max-width: 768px)');
     if (mq.matches) return;
 
@@ -461,22 +472,17 @@
 
       if (scrollable <= 0) return;
 
-      // Progress: 0 (top of section at viewport top) → 1 (bottom of section at viewport bottom)
       const progress = Math.max(0, Math.min(1, -rect.top / scrollable));
 
-      // Horizontal translation
       const trackWidth = track.scrollWidth;
       const containerWidth = track.parentElement.offsetWidth;
       const maxScroll = Math.max(0, trackWidth - containerWidth);
 
-      // Apply eased progress for smoother feel
       const easedProgress = easeInOutCubic(progress);
       track.style.transform = `translateX(${-easedProgress * maxScroll}px)`;
 
-      // Update progress bar
       if (fill) fill.style.width = (progress * 100) + '%';
 
-      // Hide hint after initial scroll
       if (hint) {
         hint.style.opacity = progress > 0.05 ? '0' : '';
       }
@@ -491,7 +497,6 @@
     window.addEventListener('scroll', update, { passive: true });
     window.addEventListener('resize', update, { passive: true });
 
-    // Re-check on orientation change
     mq.addEventListener('change', () => {
       if (mq.matches) {
         track.style.transform = '';
@@ -501,7 +506,6 @@
       }
     });
 
-    // Initial call
     requestAnimationFrame(update);
   }
 
@@ -519,7 +523,6 @@
       const scrollY = window.scrollY;
       const vh = window.innerHeight;
 
-      // Only apply parallax in the hero area
       if (scrollY > vh * 1.2) return;
 
       els.forEach((el) => {
@@ -534,91 +537,272 @@
 
 
   /* ═══════════════════════════════════════════════════════
-     14. CERTIFICATES CAROUSEL
+     14. CERTIFICATES — SCROLLYTELLING TRACK (desktop)
+          + swipeable row / drag-to-scroll fallback (mobile)
      ═══════════════════════════════════════════════════════ */
-  function initCertCarousel() {
+  function initCertScrollytelling() {
+    const section = $('.hscroll-section--certs');
     const viewport = $('#certViewport');
     const track = $('#certTrack');
+    const fill = $('#certHscrollFill');
     const prevBtn = $('#certPrev');
     const nextBtn = $('#certNext');
     const dotsContainer = $('#certDots');
 
-    if (!viewport || !track) return;
+    if (!section || !viewport || !track) return;
 
     const cards = $$('.cert-card', track);
-    const cardWidth = 240 + 18; // flex-basis + gap
-    const visibleCards = Math.max(1, Math.floor(viewport.offsetWidth / cardWidth));
-    const totalGroups = Math.max(1, cards.length - visibleCards + 1);
+    const mq = window.matchMedia('(max-width: 768px)');
 
-    // Create dots
-    if (dotsContainer) {
-      for (let i = 0; i < Math.min(totalGroups, 8); i++) {
+    // Build dots (used in both modes)
+    function buildDots(count) {
+      if (!dotsContainer) return;
+      dotsContainer.innerHTML = '';
+      for (let i = 0; i < count; i++) {
         const dot = document.createElement('button');
         dot.className = 'cert-carousel__dot';
-        dot.setAttribute('aria-label', `Go to certificate group ${i + 1}`);
+        dot.setAttribute('aria-label', `Go to certificate ${i + 1}`);
         if (i === 0) dot.classList.add('is-active');
-        dot.addEventListener('click', () => scrollToGroup(i));
         dotsContainer.appendChild(dot);
       }
     }
 
-    function updateDots() {
-      if (!dotsContainer) return;
-      const scrollLeft = viewport.scrollLeft;
-      const maxScroll = viewport.scrollWidth - viewport.offsetWidth;
-      const progress = maxScroll > 0 ? scrollLeft / maxScroll : 0;
-      const dots = $$('.cert-carousel__dot', dotsContainer);
-      const activeIdx = Math.round(progress * (dots.length - 1));
-      dots.forEach((d, i) => d.classList.toggle('is-active', i === activeIdx));
+    /* ---------- DESKTOP: pinned scroll-driven horizontal track ---------- */
+    function updateDesktop() {
+      const rect = section.getBoundingClientRect();
+      const sectionHeight = section.offsetHeight;
+      const vh = window.innerHeight;
+      const scrollable = sectionHeight - vh;
+      if (scrollable <= 0) return;
+
+      const progress = Math.max(0, Math.min(1, -rect.top / scrollable));
+      const trackWidth = track.scrollWidth;
+      const containerWidth = track.parentElement.offsetWidth;
+      const maxScroll = Math.max(0, trackWidth - containerWidth);
+
+      const eased = progress < 0.5 ? 4 * progress ** 3 : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+      track.style.transform = `translateX(${-eased * maxScroll}px)`;
+
+      if (fill) fill.style.width = (progress * 100) + '%';
+
+      if (dotsContainer) {
+        const dots = $$('.cert-carousel__dot', dotsContainer);
+        const activeIdx = Math.min(dots.length - 1, Math.round(progress * (dots.length - 1)));
+        dots.forEach((d, i) => d.classList.toggle('is-active', i === activeIdx));
+      }
     }
 
-    function scrollToGroup(idx) {
-      const maxScroll = viewport.scrollWidth - viewport.offsetWidth;
-      const dots = $$('.cert-carousel__dot', dotsContainer);
-      const targetScroll = dots.length > 1
-        ? (idx / (dots.length - 1)) * maxScroll
-        : 0;
-      viewport.scrollTo({ left: targetScroll, behavior: 'smooth' });
+    function scrollSectionToProgress(p) {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      const vh = window.innerHeight;
+      const scrollable = sectionHeight - vh;
+      window.scrollTo({ top: sectionTop + p * scrollable, behavior: 'smooth' });
     }
 
-    // Arrow buttons
-    if (prevBtn) {
-      prevBtn.addEventListener('click', () => {
-        viewport.scrollBy({ left: -cardWidth * 2, behavior: 'smooth' });
+    /* ---------- MOBILE: native swipeable row + drag ---------- */
+    let isDragging = false, startX = 0, scrollStart = 0;
+
+    function enableMobileMode() {
+      track.style.transform = '';
+      buildDots(cards.length);
+
+      function updateMobileDots() {
+        if (!dotsContainer) return;
+        const maxScroll = viewport.scrollWidth - viewport.offsetWidth;
+        const progress = maxScroll > 0 ? viewport.scrollLeft / maxScroll : 0;
+        const dots = $$('.cert-carousel__dot', dotsContainer);
+        const activeIdx = Math.round(progress * (dots.length - 1));
+        dots.forEach((d, i) => d.classList.toggle('is-active', i === activeIdx));
+      }
+      viewport.addEventListener('scroll', updateMobileDots, { passive: true });
+      updateMobileDots();
+
+      if (dotsContainer) {
+        $$('.cert-carousel__dot', dotsContainer).forEach((dot, i) => {
+          dot.addEventListener('click', () => {
+            const card = cards[i];
+            if (card) viewport.scrollTo({ left: card.offsetLeft - 12, behavior: 'smooth' });
+          });
+        });
+      }
+    }
+
+    function bindArrowsAndDrag() {
+      if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+          if (mq.matches) {
+            viewport.scrollBy({ left: -240, behavior: 'smooth' });
+          } else {
+            const dots = dotsContainer ? $$('.cert-carousel__dot', dotsContainer) : [];
+            const activeIdx = dots.findIndex((d) => d.classList.contains('is-active'));
+            const target = Math.max(0, (activeIdx - 1)) / Math.max(1, dots.length - 1);
+            scrollSectionToProgress(target);
+          }
+        });
+      }
+      if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+          if (mq.matches) {
+            viewport.scrollBy({ left: 240, behavior: 'smooth' });
+          } else {
+            const dots = dotsContainer ? $$('.cert-carousel__dot', dotsContainer) : [];
+            const activeIdx = dots.findIndex((d) => d.classList.contains('is-active'));
+            const target = Math.min(1, (activeIdx + 1) / Math.max(1, dots.length - 1));
+            scrollSectionToProgress(target);
+          }
+        });
+      }
+
+      // Drag to scroll (desktop track, when not on touch)
+      viewport.addEventListener('mousedown', (e) => {
+        if (!mq.matches) return; // desktop uses pinned scroll, not drag
       });
     }
-    if (nextBtn) {
-      nextBtn.addEventListener('click', () => {
-        viewport.scrollBy({ left: cardWidth * 2, behavior: 'smooth' });
+
+    function setup() {
+      buildDots(mq.matches ? cards.length : Math.min(cards.length, 8));
+      if (mq.matches) {
+        enableMobileMode();
+      } else {
+        requestAnimationFrame(updateDesktop);
+      }
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!mq.matches) updateDesktop();
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+      if (!mq.matches) updateDesktop();
+    }, { passive: true });
+
+    mq.addEventListener('change', setup);
+    bindArrowsAndDrag();
+    setup();
+  }
+
+
+  /* ═══════════════════════════════════════════════════════
+     15. TIMELINE — DRAW-IN LINE & ACTIVE ICON GLOW
+     ═══════════════════════════════════════════════════════ */
+  function initTimelineDrawIn() {
+    const timeline = $('#timeline');
+    const fill = $('#timelineFill');
+    const cards = $$('.timeline__card', timeline || document);
+    if (!timeline || !fill || !cards.length) return;
+
+    function update() {
+      const rect = timeline.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const start = vh * 0.85;
+      const total = rect.height + vh * 0.3;
+      const progressPx = start - rect.top;
+      const progress = Math.max(0, Math.min(1, progressPx / total));
+      fill.style.height = (progress * 100) + '%';
+
+      cards.forEach((card) => {
+        const cardRect = card.getBoundingClientRect();
+        const isActive = cardRect.top < vh * 0.7 && cardRect.bottom > vh * 0.2;
+        card.classList.toggle('is-active', isActive);
       });
     }
 
-    // Update dots on scroll
-    viewport.addEventListener('scroll', updateDots, { passive: true });
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
+    update();
+  }
 
-    // Drag to scroll
-    let isDragging = false;
-    let startX = 0;
-    let scrollStart = 0;
 
-    viewport.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      startX = e.pageX;
-      scrollStart = viewport.scrollLeft;
-      viewport.classList.add('is-dragging');
-      e.preventDefault();
-    });
+  /* ═══════════════════════════════════════════════════════
+     16. CURSOR-REACTIVE GLOW (desktop only)
+     ═══════════════════════════════════════════════════════ */
+  function initCursorGlow() {
+    const glow = $('#cursorGlow');
+    if (!glow || prefersReducedMotion() || !isFinePointer()) return;
+
+    let rafId = null;
+    let targetX = window.innerWidth / 2;
+    let targetY = window.innerHeight / 2;
 
     window.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      const dx = e.pageX - startX;
-      viewport.scrollLeft = scrollStart - dx;
-    });
+      targetX = e.clientX;
+      targetY = e.clientY;
+      glow.classList.add('is-active');
+      if (!rafId) {
+        rafId = requestAnimationFrame(apply);
+      }
+    }, { passive: true });
 
-    window.addEventListener('mouseup', () => {
-      if (isDragging) {
-        isDragging = false;
-        viewport.classList.remove('is-dragging');
+    function apply() {
+      glow.style.setProperty('--gx', targetX + 'px');
+      glow.style.setProperty('--gy', targetY + 'px');
+      rafId = null;
+    }
+  }
+
+
+  /* ═══════════════════════════════════════════════════════
+     17. MAGNETIC BUTTONS (desktop only)
+     ═══════════════════════════════════════════════════════ */
+  function initMagneticButtons() {
+    if (prefersReducedMotion() || !isFinePointer()) return;
+
+    const els = $$('.magnetic');
+    els.forEach((el) => {
+      let rafId = null;
+      let tx = 0, ty = 0;
+
+      el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        const relX = e.clientX - rect.left - rect.width / 2;
+        const relY = e.clientY - rect.top - rect.height / 2;
+        tx = relX * 0.28;
+        ty = relY * 0.35;
+        if (!rafId) rafId = requestAnimationFrame(apply);
+      });
+
+      el.addEventListener('mouseleave', () => {
+        tx = 0; ty = 0;
+        if (!rafId) rafId = requestAnimationFrame(apply);
+      });
+
+      function apply() {
+        el.style.transform = `translate(${tx}px, ${ty}px)`;
+        rafId = null;
+      }
+    });
+  }
+
+
+  /* ═══════════════════════════════════════════════════════
+     18. TILT CARDS (desktop only)
+     ═══════════════════════════════════════════════════════ */
+  function initTiltCards() {
+    if (prefersReducedMotion() || !isFinePointer()) return;
+
+    const els = $$('.tilt-el');
+    els.forEach((el) => {
+      let rafId = null;
+      let rx = 0, ry = 0;
+
+      el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width;
+        const py = (e.clientY - rect.top) / rect.height;
+        ry = (px - 0.5) * 8;
+        rx = (0.5 - py) * 8;
+        if (!rafId) rafId = requestAnimationFrame(apply);
+      });
+
+      el.addEventListener('mouseleave', () => {
+        rx = 0; ry = 0;
+        if (!rafId) rafId = requestAnimationFrame(apply);
+      });
+
+      function apply() {
+        el.style.transform = `perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(${rx !== 0 || ry !== 0 ? -3 : 0}px)`;
+        rafId = null;
       }
     });
   }
@@ -645,7 +829,11 @@
     initYear();
     initHorizontalScroll();
     initParallax();
-    initCertCarousel();
+    initCertScrollytelling();
+    initTimelineDrawIn();
+    initCursorGlow();
+    initMagneticButtons();
+    initTiltCards();
   }
 
 

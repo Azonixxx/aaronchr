@@ -31,8 +31,8 @@
     </div>
 
     <div class="loader__body" id="loaderBody">
-      <p class="loader__bios">BIOS POST v4.2.1 — Aaron CHR System</p>
-      <p class="loader__bios loader__bios--sub">Memory test: 16384 MB <span class="loader__ok">OK</span></p>
+      <p class="loader__bios" data-glitch="BIOS POST v4.2.1 — Aaron CHR System">BIOS POST v4.2.1 — Aaron CHR System</p>
+      <p class="loader__bios loader__bios--sub">Welcome Stranger! <span class="loader__ok">USER</span></p>
       <div class="loader__divider">────────────────────────────────────────</div>
     </div>
 
@@ -49,8 +49,24 @@
 
 <!-- ============ SITE ============ -->
 <canvas id="techBg" aria-hidden="true"></canvas>
+<div class="noise-overlay" aria-hidden="true"></div>
 <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 
+<!-- Chapter rail -->
+<nav class="chapter-rail" id="chapterRail" aria-label="Section navigation">
+  <ul class="chapter-rail__list">
+    <li><a href="#top" data-target="top"><span class="chapter-rail__dot"></span><span class="chapter-rail__label">Top</span></a></li>
+    <li><a href="#about" data-target="about"><span class="chapter-rail__dot"></span><span class="chapter-rail__label">About</span></a></li>
+    <li><a href="#experience" data-target="experience"><span class="chapter-rail__dot"></span><span class="chapter-rail__label">Experience</span></a></li>
+    <li><a href="#skills" data-target="skills"><span class="chapter-rail__dot"></span><span class="chapter-rail__label">Skills</span></a></li>
+    <li><a href="#education" data-target="education"><span class="chapter-rail__dot"></span><span class="chapter-rail__label">Education</span></a></li>
+    <li><a href="#honors" data-target="honors"><span class="chapter-rail__dot"></span><span class="chapter-rail__label">Awards</span></a></li>
+    <li><a href="#certificates" data-target="certificates"><span class="chapter-rail__dot"></span><span class="chapter-rail__label">Certificates</span></a></li>
+    <li><a href="#contact" data-target="contact"><span class="chapter-rail__dot"></span><span class="chapter-rail__label">Contact</span></a></li>
+  </ul>
+  <div class="chapter-rail__track" aria-hidden="true"><div class="chapter-rail__fill" id="chapterRailFill"></div></div>
+</nav>
 
 <header class="nav" id="siteHeader">
   <a href="#top" class="nav__brand">Aaron <span>CHR</span></a>
@@ -70,7 +86,7 @@
     <span class="theme-toggle__icon theme-toggle__icon--sun">☀️</span>
   </button>
 
-  <a href="#contact" class="btn btn--primary nav__cta">Let's talk</a>
+  <a href="#contact" class="btn btn--primary nav__cta magnetic">Let's talk</a>
 
   <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -82,9 +98,10 @@
   <!-- ======= HERO ======= -->
   <section class="hero">
     <div class="hero__glow parallax-el" data-speed="0.15" aria-hidden="true"></div>
+    <div class="hero__grid-fade" aria-hidden="true"></div>
     <div class="hero__content">
       <p class="eyebrow reveal">👋 Hi, I'm</p>
-      <h1 class="hero__name reveal">Aaron Christian Malubay</h1>
+      <h1 class="hero__name reveal hero__name--gradient">Aaron Christian Malubay</h1>
       <p class="hero__role reveal">IT Support Specialist</p>
       <p class="hero__tagline reveal">
         I help people and their computers get along. Whether it's troubleshooting
@@ -93,8 +110,8 @@
         Based in Metro Manila, and happy to explain things in Filipino or English.
       </p>
       <div class="hero__ctas reveal">
-        <a class="btn btn--primary" href="#contact">Let's talk</a>
-        <a class="btn btn--ghost" href="#experience">See my experience</a>
+        <a class="btn btn--primary magnetic" href="#contact">Let's talk</a>
+        <a class="btn btn--ghost magnetic" href="#experience">See my experience</a>
       </div>
       <ul class="hero__badges reveal">
         <li><span class="hero__badge-num">1+ yr</span>IT Support Experience</li>
@@ -103,8 +120,9 @@
       </ul>
     </div>
     <div class="hero__avatar reveal parallax-el" data-speed="0.25">
+      <div class="hero__avatar-glow" aria-hidden="true"></div>
       <div class="hero__avatar-ring" aria-hidden="true"></div>
-      <div class="hero__avatar-inner">
+      <div class="hero__avatar-inner tilt-el">
         <img src="assets/profile-light.jpg" alt="Photo of Aaron Christian Malubay" class="hero__avatar-img hero__avatar-img--light" onerror="this.style.display='none'">
         <img src="assets/profile-dark.jpg" alt="Photo of Aaron Christian Malubay" class="hero__avatar-img hero__avatar-img--dark" onerror="this.style.display='none'">
       </div>
@@ -112,13 +130,19 @@
       <span class="hero__chip hero__chip--2" aria-hidden="true">💻 Software</span>
       <span class="hero__chip hero__chip--3" aria-hidden="true">🎨 Design</span>
     </div>
+    <a class="hero__scroll-cue" href="#about" aria-label="Scroll to About section">
+      <span class="hero__scroll-cue-line"></span>
+      <span class="hero__scroll-cue-text">Scroll</span>
+    </a>
   </section>
 
   <!-- ======= ABOUT ======= -->
   <section id="about" class="section reveal">
-    <p class="section__label">About me</p>
-    <h2 class="section__title">A bit of my story</h2>
-    <div class="about__card">
+    <div class="section__head">
+      <p class="section__label">About me</p>
+      <h2 class="section__title">A bit of my story</h2>
+    </div>
+    <div class="about__card tilt-el">
       <p>
         I'm an IT Support professional with a year of hands-on experience helping 
         businesses and individuals keep their technology running efficiently. I have 
@@ -139,10 +163,14 @@
 
   <!-- ======= EXPERIENCE ======= -->
   <section id="experience" class="section reveal">
-    <p class="section__label">Experience</p>
-    <h2 class="section__title">Where I've worked</h2>
+    <div class="section__head">
+      <p class="section__label">Experience</p>
+      <h2 class="section__title">Where I've worked</h2>
+    </div>
 
-    <div class="timeline">
+    <div class="timeline" id="timeline">
+      <div class="timeline__line" aria-hidden="true"><div class="timeline__line-fill" id="timelineFill"></div></div>
+
       <article class="timeline__card reveal reveal--left">
         <div class="timeline__card-top">
           <div class="timeline__icon">🖥️</div>
@@ -193,32 +221,32 @@
       </div>
       <div class="hscroll-viewport">
         <div class="hscroll-track" id="skillsTrack">
-          <div class="skill-card hscroll-card">
+          <div class="skill-card hscroll-card tilt-el">
             <div class="skill-card__icon">🔧</div>
             <p class="skill-card__title">Hardware repair &amp; setup</p>
             <p class="skill-card__desc">Assembling, configuring, and troubleshooting PC hardware, plus any type of upgrades.</p>
           </div>
-          <div class="skill-card hscroll-card">
+          <div class="skill-card hscroll-card tilt-el">
             <div class="skill-card__icon">🪟</div>
             <p class="skill-card__title">Software &amp; OS installation</p>
             <p class="skill-card__desc">Installing Windows and everyday software, and solving the issues that come up along the way.</p>
           </div>
-          <div class="skill-card hscroll-card">
+          <div class="skill-card hscroll-card tilt-el">
             <div class="skill-card__icon">📷</div>
             <p class="skill-card__title">CCTV &amp; network setup</p>
             <p class="skill-card__desc">Installing and troubleshooting surveillance systems and basic connectivity issues.</p>
           </div>
-          <div class="skill-card hscroll-card">
+          <div class="skill-card hscroll-card tilt-el">
             <div class="skill-card__icon">🌐</div>
             <p class="skill-card__title">Website upkeep</p>
             <p class="skill-card__desc">Managing and updating websites with WordPress, plus the fundamentals of HTML, CSS &amp; JavaScript.</p>
           </div>
-          <div class="skill-card hscroll-card">
+          <div class="skill-card hscroll-card tilt-el">
             <div class="skill-card__icon">🎨</div>
             <p class="skill-card__title">Content &amp; design</p>
             <p class="skill-card__desc">Creating marketing graphics and videos with Canva, Adobe Photoshop, and AI tools.</p>
           </div>
-          <div class="skill-card hscroll-card">
+          <div class="skill-card hscroll-card tilt-el">
             <div class="skill-card__icon">🤝</div>
             <p class="skill-card__title">People &amp; communication</p>
             <p class="skill-card__desc">Clear communication in Filipino and English, and a dependable, cooperative teammate.</p>
@@ -255,11 +283,13 @@
 
   <!-- ======= EDUCATION ======= -->
   <section id="education" class="section reveal">
-    <p class="section__label">Education</p>
-    <h2 class="section__title">Where I studied</h2>
+    <div class="section__head">
+      <p class="section__label">Education</p>
+      <h2 class="section__title">Where I studied</h2>
+    </div>
 
     <div class="edu-grid">
-      <div class="edu-card reveal reveal--scale">
+      <div class="edu-card reveal reveal--scale tilt-el">
         <div class="edu-card__icon"></div>
         <p class="edu-card__degree">Bachelor of Science in Information Technology</p>
         <p class="edu-card__school">
@@ -270,7 +300,7 @@
         <p class="edu-card__meta">2021 – 2025</p>
         <p class="edu-card__addr">659-A Cecilia Muñoz St, Ermita, Manila, 1000 Metro Manila</p>
       </div>
-      <div class="edu-card reveal reveal--scale">
+      <div class="edu-card reveal reveal--scale tilt-el">
         <div class="edu-card__icon"></div>
         <p class="edu-card__degree">Senior High School</p>
         <p class="edu-card__school">
@@ -286,29 +316,33 @@
 
   <!-- ======= HONORS ======= -->
   <section id="honors" class="section reveal">
-    <p class="section__label">Recognition</p>
-    <h2 class="section__title">Honors &amp; awards</h2>
+    <div class="section__head">
+      <p class="section__label">Recognition</p>
+      <h2 class="section__title">Honors &amp; awards</h2>
+    </div>
 
     <div class="badge-grid">
-      <div class="badge reveal reveal--scale">
+      <div class="badge reveal reveal--scale tilt-el">
         <div class="badge__icon"></div>
         <p class="badge__title">Cum Laude Graduate</p>
         <p class="badge__meta">Universidad De Manila · S.Y. 2021–2025</p>
       </div>
-      <div class="badge reveal reveal--scale">
+      <div class="badge reveal reveal--scale tilt-el">
         <div class="badge__icon"></div>
         <p class="badge__title">Consistent Dean's Lister</p>
         <p class="badge__meta">Universidad De Manila · S.Y. 2021–2025</p>
       </div>
-      <div class="badge reveal reveal--scale">
+      <div class="badge reveal reveal--scale tilt-el">
         <div class="badge__icon"></div>
         <p class="badge__title">With Honors</p>
         <p class="badge__meta">ABE International Business College · S.Y. 2019–2021</p>
       </div>
     </div>
 
-    <p class="section__label" style="margin-top:56px;">Also learning</p>
-    <h2 class="section__title">Seminars &amp; workshops</h2>
+    <div class="section__head" style="margin-top:56px;">
+      <p class="section__label">Also learning</p>
+      <h2 class="section__title">Seminars &amp; workshops</h2>
+    </div>
     <ul class="seminar-list">
       <li><span class="seminar-list__date">Nov 2023</span>GIT: From Zero to Hero <span class="seminar-list__src">— Universidad De Manila</span></li>
       <li><span class="seminar-list__date">Dec 2023</span>The Power of ChatGPT in Society <span class="seminar-list__src">— Universidad De Manila</span></li>
@@ -321,65 +355,66 @@
     </ul>
   </section>
 
-  <!-- ======= CERTIFICATES (CAROUSEL) ======= -->
-  <section id="certificates" class="section reveal">
-    <p class="section__label">Proof of work</p>
-    <h2 class="section__title">Certificates</h2>
-    <p class="certificates__intro">Scans of certificates from the trainings above.</p>
-
-    <div class="cert-carousel" id="certCarousel">
-      <div class="cert-carousel__viewport" id="certViewport">
-        <div class="cert-carousel__track" id="certTrack">
-          <figure class="cert-card">
+  <!-- ======= CERTIFICATES (SCROLLYTELLING HORIZONTAL) ======= -->
+  <section id="certificates" class="hscroll-section hscroll-section--certs">
+    <div class="hscroll-sticky">
+      <div class="hscroll-header">
+        <p class="section__label">Proof of work</p>
+        <h2 class="section__title">Certificates</h2>
+        <p class="certificates__intro">Scans of certificates from the trainings above.</p>
+      </div>
+      <div class="hscroll-viewport" id="certViewport">
+        <div class="hscroll-track" id="certTrack">
+          <figure class="cert-card hscroll-card">
             <div class="cert-card__frame">
               <img src="assets/certificates/git-fundamentals.jpg" alt="Certificate — GIT: From Zero to Hero" onerror="this.style.display='none'">
               <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
             </div>
             <figcaption>GIT: From Zero to Hero <small>Nov 2023</small></figcaption>
           </figure>
-          <figure class="cert-card">
+          <figure class="cert-card hscroll-card">
             <div class="cert-card__frame">
               <img src="assets/certificates/chatgpt-society.jpg" alt="Certificate — The Power of ChatGPT in Society" onerror="this.style.display='none'">
               <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
             </div>
             <figcaption>The Power of ChatGPT in Society <small>Dec 2023</small></figcaption>
           </figure>
-          <figure class="cert-card">
+          <figure class="cert-card hscroll-card">
             <div class="cert-card__frame">
               <img src="assets/certificates/adobe-genai.jpg" alt="Certificate — Maximizing Adobe's Gen AI for Social Media Management" onerror="this.style.display='none'">
               <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
             </div>
             <figcaption>Adobe's Gen AI for Social Media <small>Dec 2023</small></figcaption>
           </figure>
-          <figure class="cert-card">
+          <figure class="cert-card hscroll-card">
             <div class="cert-card__frame">
               <img src="assets/certificates/generative-ai.jpg" alt="Certificate — Generative AI" onerror="this.style.display='none'">
               <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
             </div>
             <figcaption>Generative AI <small>Mar 2024</small></figcaption>
           </figure>
-          <figure class="cert-card">
+          <figure class="cert-card hscroll-card">
             <div class="cert-card__frame">
               <img src="assets/certificates/ai-academic-writing.jpg" alt="Certificate — Leveraging AI Tools in Academic Writing" onerror="this.style.display='none'">
               <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
             </div>
             <figcaption>AI Tools in Academic Writing <small>Mar 2024</small></figcaption>
           </figure>
-          <figure class="cert-card">
+          <figure class="cert-card hscroll-card">
             <div class="cert-card__frame">
               <img src="assets/certificates/data-privacy.jpg" alt="Certificate — Guardians of Privacy: Nurturing Data Awareness" onerror="this.style.display='none'">
               <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
             </div>
             <figcaption>Guardians of Privacy <small>Apr 2024</small></figcaption>
           </figure>
-          <figure class="cert-card">
+          <figure class="cert-card hscroll-card">
             <div class="cert-card__frame">
               <img src="assets/certificates/6g-networks.jpg" alt="Certificate — The Vision of 6G Networks in the Future" onerror="this.style.display='none'">
               <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
             </div>
             <figcaption>The Vision of 6G Networks <small>May 2024</small></figcaption>
           </figure>
-          <figure class="cert-card">
+          <figure class="cert-card hscroll-card">
             <div class="cert-card__frame">
               <img src="assets/certificates/technopreneurship.jpg" alt="Certificate — Understanding the Basics of Technopreneurship" onerror="this.style.display='none'">
               <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
@@ -387,6 +422,9 @@
             <figcaption>Basics of Technopreneurship <small>May 2024</small></figcaption>
           </figure>
         </div>
+      </div>
+      <div class="hscroll-progress" aria-hidden="true">
+        <div class="hscroll-progress__fill" id="certHscrollFill"></div>
       </div>
       <div class="cert-carousel__controls">
         <button class="cert-carousel__btn" id="certPrev" aria-label="Previous certificates">&#8249;</button>
@@ -398,26 +436,39 @@
 
   <!-- ======= CONTACT ======= -->
   <section id="contact" class="section reveal">
-    <p class="section__label">Contact</p>
-    <h2 class="section__title">Let's work together</h2>
+    <div class="section__head">
+      <p class="section__label">Contact</p>
+      <h2 class="section__title">Let's work together</h2>
+    </div>
     <p class="contact__intro">Have a role in mind, or just want to say hi? Send me a message below.</p>
 
     <div class="contact__grid">
-      <form class="contact__form" id="contactForm">
-        <label class="field">
-          <span>Your name</span>
-          <input type="text" name="name" placeholder="Juan Dela Cruz" required>
-        </label>
-        <label class="field">
-          <span>Your email</span>
-          <input type="email" name="email" placeholder="name@example.com" required>
-        </label>
-        <label class="field">
-          <span>Message</span>
-          <textarea name="message" rows="4" placeholder="Let's talk about..." required></textarea>
-        </label>
-        <button type="submit" class="btn btn--primary">Send message</button>
-        <p class="contact__status" id="contactStatus" aria-live="polite"></p>
+      <form class="contact__form" id="contactForm" novalidate>
+        <div class="field field--float">
+          <input type="text" name="name" id="fieldName" placeholder=" " required>
+          <label for="fieldName">Your name</label>
+          <span class="field__underline"></span>
+        </div>
+        <div class="field field--float">
+          <input type="email" name="email" id="fieldEmail" placeholder=" " required>
+          <label for="fieldEmail">Your email</label>
+          <span class="field__underline"></span>
+        </div>
+        <div class="field field--float">
+          <textarea name="message" id="fieldMessage" rows="4" placeholder=" " required></textarea>
+          <label for="fieldMessage">Message</label>
+          <span class="field__underline"></span>
+        </div>
+        <button type="submit" class="btn btn--primary magnetic">
+          <span class="btn__label">Send message</span>
+        </button>
+        <p class="contact__status" id="contactStatus" aria-live="polite">
+          <svg class="contact__check" id="contactCheck" viewBox="0 0 52 52" aria-hidden="true">
+            <circle class="contact__check-circle" cx="26" cy="26" r="23" fill="none"/>
+            <path class="contact__check-mark" fill="none" d="M14 27l7 7 17-17"/>
+          </svg>
+          <span class="contact__status-text" id="contactStatusText"></span>
+        </p>
       </form>
 
       <div class="contact__direct">
