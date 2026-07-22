@@ -17,34 +17,18 @@
 
 <!-- ============ LOADER ============ -->
 <div class="loader" id="loader" aria-label="Loading portfolio">
+  <div class="loader__code-bg" aria-hidden="true"></div>
   <div class="loader__grid" aria-hidden="true"></div>
-  <div class="loader__scanlines" aria-hidden="true"></div>
 
-  <div class="loader__terminal">
-    <div class="loader__bar">
-      <div class="loader__dots">
-        <span class="loader__dot loader__dot--red"></span>
-        <span class="loader__dot loader__dot--yellow"></span>
-        <span class="loader__dot loader__dot--green"></span>
-      </div>
-      <span class="loader__bar-title">system.boot — aaron-chr</span>
-    </div>
-
-    <div class="loader__body" id="loaderBody">
-      <p class="loader__bios" data-glitch="BIOS POST v4.2.1 — Aaron CHR System">BIOS POST v4.2.1 — Aaron CHR System</p>
-      <p class="loader__bios loader__bios--sub">Welcome Stranger! <span class="loader__ok">USER</span></p>
-      <div class="loader__divider">────────────────────────────────────────</div>
-    </div>
-
-    <div class="loader__footer">
+  <div class="loader__center" id="loaderCenter">
+    <h2 class="loader__brand" id="loaderBrand">Aaron <span>CHR</span></h2>
+    <div class="loader__indicator" id="loaderIndicator">
       <div class="loader__progress-track">
         <div class="loader__progress-fill" id="loaderProgress"></div>
       </div>
-      <span class="loader__percent" id="loaderPercent">0%</span>
+      <p class="loader__status" id="loaderStatus">Initializing…</p>
     </div>
   </div>
-
-  <p class="loader__welcome" id="loaderWelcome">Welcome to Aaron CHR's Portfolio</p>
 </div>
 
 <!-- ============ SITE ============ -->
@@ -125,14 +109,20 @@
         <img src="assets/profile-light.jpg" alt="Photo of Aaron Christian Malubay" class="hero__avatar-img hero__avatar-img--light" onerror="this.style.display='none'">
         <img src="assets/profile-dark.jpg" alt="Photo of Aaron Christian Malubay" class="hero__avatar-img hero__avatar-img--dark" onerror="this.style.display='none'">
       </div>
-      <span class="hero__chip hero__chip--1" aria-hidden="true">🛠️ Hardware</span>
-      <span class="hero__chip hero__chip--2" aria-hidden="true">💻 Software</span>
-      <span class="hero__chip hero__chip--3" aria-hidden="true">🎨 Design</span>
+      <span class="hero__chip hero__chip--1" aria-hidden="true">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><path d="M9 9h6v6H9z"/><path d="M9 1v3"/><path d="M15 1v3"/><path d="M9 20v3"/><path d="M15 20v3"/><path d="M20 9h3"/><path d="M20 14h3"/><path d="M1 9h3"/><path d="M1 14h3"/></svg>
+        Hardware
+      </span>
+      <span class="hero__chip hero__chip--2" aria-hidden="true">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+        Software
+      </span>
+      <span class="hero__chip hero__chip--3" aria-hidden="true">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+        Design
+      </span>
     </div>
-    <a class="hero__scroll-cue" href="#about" aria-label="Scroll to About section">
-      <span class="hero__scroll-cue-line"></span>
-      <span class="hero__scroll-cue-text">Scroll</span>
-    </a>
+
   </section>
 
   <!-- ======= ABOUT ======= -->
@@ -211,72 +201,125 @@
     </div>
   </section>
 
-  <!-- ======= SKILLS (HORIZONTAL SCROLL) ======= -->
-  <section id="skills" class="hscroll-section">
-    <div class="hscroll-sticky">
-      <div class="hscroll-header">
-        <p class="section__label">Skills</p>
-        <h2 class="section__title">What I'm good at</h2>
-      </div>
-      <div class="hscroll-viewport">
-        <div class="hscroll-track" id="skillsTrack">
-          <div class="skill-card hscroll-card tilt-el">
-            <div class="skill-card__icon">🔧</div>
-            <p class="skill-card__title">Hardware repair &amp; setup</p>
-            <p class="skill-card__desc">Assembling, configuring, and troubleshooting PC hardware, plus any type of upgrades.</p>
-          </div>
-          <div class="skill-card hscroll-card tilt-el">
-            <div class="skill-card__icon">🪟</div>
-            <p class="skill-card__title">Software &amp; OS installation</p>
-            <p class="skill-card__desc">Installing Windows and everyday software, and solving the issues that come up along the way.</p>
-          </div>
-          <div class="skill-card hscroll-card tilt-el">
-            <div class="skill-card__icon">📷</div>
-            <p class="skill-card__title">CCTV &amp; network setup</p>
-            <p class="skill-card__desc">Installing and troubleshooting surveillance systems and basic connectivity issues.</p>
-          </div>
-          <div class="skill-card hscroll-card tilt-el">
-            <div class="skill-card__icon">🌐</div>
-            <p class="skill-card__title">Website upkeep</p>
-            <p class="skill-card__desc">Managing and updating websites with WordPress, plus the fundamentals of HTML, CSS &amp; JavaScript.</p>
-          </div>
-          <div class="skill-card hscroll-card tilt-el">
-            <div class="skill-card__icon">🎨</div>
-            <p class="skill-card__title">Content &amp; design</p>
-            <p class="skill-card__desc">Creating marketing graphics and videos with Canva, Adobe Photoshop, and AI tools.</p>
-          </div>
-          <div class="skill-card hscroll-card tilt-el">
-            <div class="skill-card__icon">🤝</div>
-            <p class="skill-card__title">People &amp; communication</p>
-            <p class="skill-card__desc">Clear communication in Filipino and English, and a dependable, cooperative teammate.</p>
-          </div>
-          <div class="hscroll-card hscroll-card--tools">
-            <p class="tools__label">Tools &amp; software I use</p>
-            <ul class="chip-list">
-              <li class="chip">ChatGPT</li>
-              <li class="chip">Gemini</li>
-              <li class="chip">Claude</li>
-              <li class="chip">Visual Studio Code</li>
-              <li class="chip">Xampp</li>
-              <li class="chip">Microsoft Office</li>
-              <li class="chip">Adobe Photoshop</li>
-              <li class="chip">Canva</li>
-              <li class="chip">WordPress &amp; Divi</li>
-              <li class="chip">AI research tools</li>
-              <li class="chip">AI voice tools</li>
-              <li class="chip">HTML / CSS / JS</li>
-            </ul>
-          </div>
+  <!-- ======= SKILLS (GRID) ======= -->
+  <section id="skills" class="section reveal">
+    <div class="section__head">
+      <p class="section__label">Skills</p>
+      <h2 class="section__title">What I'm good at</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card reveal reveal--scale tilt-el">
+        <div class="skill-card__icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
         </div>
+        <p class="skill-card__title">Hardware repair &amp; setup</p>
+        <p class="skill-card__desc">Assembling, configuring, and troubleshooting PC hardware, plus any type of upgrades.</p>
       </div>
-      <div class="hscroll-progress" aria-hidden="true">
-        <div class="hscroll-progress__fill" id="hscrollFill"></div>
+      <div class="skill-card reveal reveal--scale tilt-el" style="transition-delay: 0.1s;">
+        <div class="skill-card__icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        </div>
+        <p class="skill-card__title">Software &amp; OS installation</p>
+        <p class="skill-card__desc">Installing Windows and everyday software, and solving the issues that come up along the way.</p>
       </div>
-      <p class="hscroll-hint" aria-hidden="true">
-        <span class="hscroll-hint__icon">↓</span>
-        Scroll to explore
-        <span class="hscroll-hint__icon">→</span>
-      </p>
+      <div class="skill-card reveal reveal--scale tilt-el" style="transition-delay: 0.2s;">
+        <div class="skill-card__icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20"/><path d="M12 2v20"/><circle cx="12" cy="12" r="10"/></svg>
+        </div>
+        <p class="skill-card__title">CCTV &amp; network setup</p>
+        <p class="skill-card__desc">Installing and troubleshooting surveillance systems and basic connectivity issues.</p>
+      </div>
+      <div class="skill-card reveal reveal--scale tilt-el">
+        <div class="skill-card__icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <p class="skill-card__title">Website upkeep</p>
+        <p class="skill-card__desc">Managing and updating websites with WordPress, plus the fundamentals of HTML, CSS &amp; JavaScript.</p>
+      </div>
+      <div class="skill-card reveal reveal--scale tilt-el" style="transition-delay: 0.1s;">
+        <div class="skill-card__icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+        </div>
+        <p class="skill-card__title">Content &amp; design</p>
+        <p class="skill-card__desc">Creating marketing graphics and videos with Canva, Adobe Photoshop, and AI tools.</p>
+      </div>
+      <div class="skill-card reveal reveal--scale tilt-el" style="transition-delay: 0.2s;">
+        <div class="skill-card__icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <p class="skill-card__title">People &amp; communication</p>
+        <p class="skill-card__desc">Clear communication in Filipino and English, and a dependable, cooperative teammate.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= TOOLS ======= -->
+  <section id="tools" class="section reveal">
+    <div class="section__head">
+      <p class="section__label">Tools &amp; Software</p>
+      <h2 class="section__title">What I use daily</h2>
+    </div>
+    <div class="tools-grid">
+      <div class="tool-card tilt-el">
+        <div class="tool-card__icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z"/></svg></div>
+        <p class="tool-card__name">ChatGPT</p>
+      </div>
+      <div class="tool-card tilt-el">
+        <div class="tool-card__icon" style="color: #4A90E2;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.04 19.32Q12 21.51 12 24q0-2.49.93-4.68.96-2.19 2.85-4.05 1.86-1.86 4.05-2.82Q22.02 11.52 24 11.52q-1.98 0-4.17-.93-2.19-.93-4.05-2.82-1.89-1.86-2.85-4.05Q12 1.53 12 0q0 2.49-.96 4.68-.93 2.19-2.79 4.05-1.89 1.89-4.08 2.82Q1.98 12.48 0 12.48q1.98 0 4.17.96 2.19.93 4.08 2.79 1.86 1.86 2.79 3.09Zm7.56-11.4q.45 1.14.45 2.25 0-1.11.45-2.25.48-1.11 1.29-1.92.81-.84 1.95-1.29 1.11-.48 2.25-.48-1.14 0-2.25-.48-1.14-.45-1.95-1.26-.81-.84-1.29-1.95-.45-1.11-.45-2.25 0 1.14-.45 2.25-.45 1.11-1.26 1.95-.81.81-1.95 1.26-1.11.48-2.25.48 1.14 0 2.25.48 1.14.45 1.95 1.29Z"/></svg></div>
+        <p class="tool-card__name">Gemini</p>
+      </div>
+      <div class="tool-card tilt-el">
+        <div class="tool-card__icon" style="color: #D35400;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.3041 3.541h-3.6718l6.696 16.918H24Zm-10.608 0L0 20.459h3.7662l1.6234-4.225h6.9126l1.642 4.225h3.6719L10.9252 3.541Zm-2.5857 9.873 2.5857-6.724 2.5856 6.724Z"/></svg></div>
+        <p class="tool-card__name">Claude</p>
+      </div>
+      <div class="tool-card tilt-el">
+        <div class="tool-card__icon" style="color: #007ACC;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.15 2.587L18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 0 0-1.276.057L.327 7.261A1 1 0 0 0 .326 8.74L3.899 12 .326 15.26a1 1 0 0 0 .001 1.479L1.65 17.94a.999.999 0 0 0 1.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 0 0 1.704.29l4.942-2.377A1.5 1.5 0 0 0 24 20.06V3.939a1.5 1.5 0 0 0-.85-1.352zm-5.146 14.861L10.826 12l7.178-5.448v10.896z"/></svg></div>
+        <p class="tool-card__name">VS Code</p>
+      </div>
+      <div class="tool-card tilt-el">
+        <div class="tool-card__icon" style="color: #31A8FF;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.85 8.42c-.37-.15-.77-.21-1.18-.2-.26 0-.49 0-.68.01-.2-.01-.34 0-.41.01v3.36c.14.01.27.02.39.02h.53c.39 0 .78-.06 1.15-.18.32-.09.6-.28.82-.53.21-.25.31-.59.31-1.03.01-.31-.07-.62-.23-.89-.17-.26-.41-.46-.7-.57zM19.75.3H4.25C1.9.3 0 2.2 0 4.55v14.899c0 2.35 1.9 4.25 4.25 4.25h15.5c2.35 0 4.25-1.9 4.25-4.25V4.55C24 2.2 22.1.3 19.75.3zm-7.391 11.65c-.399.56-.959.98-1.609 1.22-.68.25-1.43.34-2.25.34-.24 0-.4 0-.5-.01s-.24-.01-.43-.01v3.209c.01.07-.04.131-.11.141H5.52c-.08 0-.12-.041-.12-.131V6.42c0-.07.03-.11.1-.11.17 0 .33 0 .56-.01.24-.01.49-.01.76-.02s.56-.01.87-.02c.31-.01.61-.01.91-.01.82 0 1.5.1 2.06.31.5.17.96.45 1.34.82.32.32.57.71.73 1.14.149.42.229.85.229 1.3.001.86-.199 1.57-.6 2.13zm7.091 3.89c-.28.4-.671.709-1.12.891-.49.209-1.09.318-1.811.318-.459 0-.91-.039-1.359-.129-.35-.061-.7-.17-1.02-.32-.07-.039-.121-.109-.111-.189v-1.74c0-.029.011-.07.041-.09.029-.02.06-.01.09.01.39.23.8.391 1.24.49.379.1.779.15 1.18.15.38 0 .65-.051.83-.141.16-.07.27-.24.27-.42 0-.141-.08-.27-.24-.4-.16-.129-.489-.279-.979-.471-.51-.18-.979-.42-1.42-.719-.31-.221-.569-.51-.761-.85-.159-.32-.239-.67-.229-1.021 0-.43.12-.84.341-1.21.25-.4.619-.72 1.049-.92.469-.239 1.059-.349 1.769-.349.41 0 .83.03 1.24.09.3.04.59.12.86.23.039.01.08.05.1.09.01.04.02.08.02.12v1.63c0 .04-.02.08-.05.1-.09.02-.14.02-.18 0-.3-.16-.62-.27-.96-.34-.37-.08-.74-.13-1.12-.13-.2-.01-.41.02-.601.07-.129.03-.24.1-.31.2-.05.08-.08.18-.08.27s.04.18.101.26c.09.11.209.2.34.27.229.12.47.23.709.33.541.18 1.061.43 1.541.73.33.209.6.49.789.83.16.318.24.67.23 1.029.011.471-.129.94-.389 1.331z"/></svg></div>
+        <p class="tool-card__name">Photoshop</p>
+      </div>
+      <div class="tool-card tilt-el">
+        <div class="tool-card__icon" style="color: #00C4CC;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zM6.962 7.68c.754 0 1.337.549 1.405 1.2.069.583-.171 1.097-.822 1.406-.343.171-.48.172-.549.069-.034-.069 0-.137.069-.206.617-.514.617-.926.548-1.508-.034-.378-.308-.618-.583-.618-1.2 0-2.914 2.674-2.674 4.629.103.754.549 1.646 1.509 1.646.308 0 .65-.103.96-.24.5-.264.799-.47 1.097-.8-.073-.885.704-2.046 1.851-2.046.515 0 .926.205.96.583.068.514-.377.582-.514.582s-.378-.034-.378-.17c-.034-.138.309-.07.275-.378-.035-.206-.24-.274-.446-.274-.72 0-1.131.994-1.028 1.611.035.275.172.549.447.549.205 0 .514-.31.617-.755.068-.308.343-.514.583-.514.102 0 .17.034.205.171v.138c-.034.137-.137.548-.102.651 0 .069.034.171.17.171.092 0 .436-.18.777-.459.117-.59.253-1.298.253-1.357.034-.24.137-.48.617-.48.103 0 .171.034.205.171v.138l-.136.617c.445-.583 1.097-.994 1.508-.994.172 0 .309.102.309.274 0 .103 0 .274-.069.446-.137.377-.309.96-.412 1.474 0 .137.035.274.207.274.171 0 .685-.206 1.096-.754l.007-.004c-.002-.068-.007-.134-.007-.202 0-.411.035-.754.104-.994.068-.274.411-.514.617-.514.103 0 .205.069.205.171 0 .035 0 .103-.034.137-.137.446-.24.857-.24 1.269 0 .24.034.582.102.788 0 .034.035.069.07.069.068 0 .548-.445.89-1.028-.308-.206-.48-.549-.48-.96 0-.72.446-1.097.858-1.097.343 0 .617.24.617.72 0 .308-.103.65-.274.96h.102a.77.77 0 0 0 .584-.24.293.293 0 0 1 .134-.117c.335-.425.83-.74 1.41-.74.48 0 .924.205.959.582.068.515-.378.618-.515.618l-.002-.002c-.138 0-.377-.035-.377-.172 0-.137.309-.068.274-.376-.034-.206-.24-.275-.446-.275-.686 0-1.13.891-1.028 1.611.034.275.171.583.445.583.206 0 .515-.308.652-.754.068-.274.343-.514.583-.514.103 0 .17.034.205.171 0 .069 0 .206-.137.652-.17.308-.171.48-.137.617.034.274.171.48.309.583.034.034.068.102.068.102 0 .069-.034.138-.137.138-.034 0-.068 0-.103-.035-.514-.205-.72-.548-.789-.891-.205.24-.445.377-.72.377-.445 0-.89-.411-.96-.926a1.609 1.609 0 0 1 .075-.649c-.203.13-.422.203-.623.203h-.17c-.447.652-.927 1.098-1.27 1.303a.896.896 0 0 1-.377.104c-.068 0-.171-.035-.205-.104-.095-.152-.156-.392-.193-.667-.481.527-1.145.805-1.453.805-.343 0-.548-.206-.582-.55v-.376c.102-.754.377-1.2.377-1.337a.074.074 0 0 0-.069-.07c-.24 0-1.028.824-1.166 1.373l-.103.445c-.068.309-.377.515-.582.515-.103 0-.172-.035-.206-.172v-.137l.046-.233c-.435.31-.87.508-1.075.508-.308 0-.48-.172-.514-.412-.206.274-.445.412-.754.412-.352 0-.696-.24-.862-.593-.244.275-.523.553-.852.764-.48.309-1.028.549-1.68.549-.582 0-1.097-.309-1.371-.583-.412-.377-.651-.96-.686-1.509-.205-1.68.823-3.84 2.4-4.8.378-.205.755-.343 1.132-.343zm9.77 3.291c-.104 0-.172.172-.172.343 0 .274.137.583.309.755a1.74 1.74 0 0 0 .102-.583c0-.343-.137-.515-.24-.515z"/></svg></div>
+        <p class="tool-card__name">Canva</p>
+      </div>
+      <div class="tool-card tilt-el">
+        <div class="tool-card__icon" style="color: #21759B;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.469 6.825c.84 1.537 1.318 3.3 1.318 5.175 0 2.21-.69 4.257-1.854 5.952l-5.69-15.602a9.907 9.907 0 0 1 6.226 4.475zm-6.223 9.475-2.883-8.232c-.107-.282-.132-.441-.132-.441-.097-.311-.271-.62-.635-.62h-.08c-.365 0-.537.31-.634.62 0 0-.025.16-.133.44l-2.882 8.233 3.013 8.358a9.99 9.99 0 0 0 1.222.073c.421 0 .835-.027 1.243-.073l2.871-8.358zM12 24C5.372 24 0 18.627 0 12S5.372 0 12 0s12 5.373 12 12-5.372 12-12 12zM2.873 12c0-2.02.662-3.882 1.777-5.397L9.043 18.78A9.873 9.873 0 0 1 2.873 12zm11.758-10.428h.063c-.352 0-.825.044-1.399.141-.497.085-1.026.237-1.57.452-.546.216-1.127.494-1.745.836l3.755 10.732 2.656-7.587c.214-.62.338-1.241.338-1.821 0-1.196-.694-2.753-2.098-2.753z"/></svg></div>
+        <p class="tool-card__name">WordPress</p>
+      </div>
+      <div class="tool-card tilt-el">
+        <div class="tool-card__icon" style="color: #4285F4;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/></svg></div>
+        <p class="tool-card__name">Antigravity</p>
+      </div>
+      <div class="tool-card tilt-el">
+        <div class="tool-card__icon" style="color: #3ECF8E;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.9 1.036c-.015-.986-1.26-1.41-1.874-.637L.76 12.06c-.524.66-.055 1.637.786 1.637h6.634v9.266c.015.986 1.26 1.41 1.874.637l9.266-11.66c.524-.66.055-1.638-.786-1.638h-6.634V1.036z"/></svg></div>
+        <p class="tool-card__name">Supabase</p>
+      </div>
+      <div class="tool-card tilt-el">
+        <div class="tool-card__icon" style="color: #E34F26;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/></svg></div>
+        <p class="tool-card__name">HTML5</p>
+      </div>
+      <div class="tool-card tilt-el">
+        <div class="tool-card__icon" style="color: #1572B6;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z"/></svg></div>
+        <p class="tool-card__name">CSS3</p>
+      </div>
+      <div class="tool-card tilt-el">
+        <div class="tool-card__icon" style="color: #F7DF1E;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z"/></svg></div>
+        <p class="tool-card__name">JavaScript</p>
+      </div>
+      <div class="tool-card tilt-el">
+        <div class="tool-card__icon" style="color: #2B579A;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.004 1.5q.41 0 .703.293t.293.703v19.008q0 .41-.293.703t-.703.293H6.996q-.41 0-.703-.293T6 21.504V18H.996q-.41 0-.703-.293T0 17.004V6.996q0-.41.293-.703T.996 6H6V2.496q0-.41.293-.703t.703-.293zM6.035 11.203l1.442 4.735h1.64l1.57-7.876H9.036l-.937 4.653-1.325-4.5H5.38l-1.406 4.523-.938-4.675H1.312l1.57 7.874h1.641zM22.5 21v-3h-15v3zm0-4.5v-3.75H12v3.75zm0-5.25V7.5H12v3.75zm0-5.25V3h-15v3Z"/></svg></div>
+        <p class="tool-card__name">Word</p>
+      </div>
+      <div class="tool-card tilt-el">
+        <div class="tool-card__icon" style="color: #217346;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 1.5q.41 0 .7.3.3.29.3.7v19q0 .41-.3.7-.29.3-.7.3H7q-.41 0-.7-.3-.3-.29-.3-.7V18H1q-.41 0-.7-.3-.3-.29-.3-.7V7q0-.41.3-.7Q.58 6 1 6h5V2.5q0-.41.3-.7.29-.3.7-.3zM6 13.28l1.42 2.66h2.14l-2.38-3.87 2.34-3.8H7.46l-1.3 2.4-.05.08-.04.09-.64-1.28-.66-1.29H2.59l2.27 3.82-2.48 3.85h2.16zM14.25 21v-3H7.5v3zm0-4.5v-3.75H12v3.75zm0-5.25V7.5H12v3.75zm0-5.25V3H7.5v3zm8.25 15v-3h-6.75v3zm0-4.5v-3.75h-6.75v3.75zm0-5.25V7.5h-6.75v3.75zm0-5.25V3h-6.75v3Z"/></svg></div>
+        <p class="tool-card__name">Excel</p>
+      </div>
+      <div class="tool-card tilt-el">
+        <div class="tool-card__icon" style="color: #B7472A;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 1.5q1.453 0 2.795.375 1.342.375 2.508 1.06 1.166.686 2.12 1.641.956.955 1.641 2.121.686 1.166 1.061 2.508Q24 10.547 24 12q0 1.453-.375 2.795-.375 1.342-1.06 2.508-.686 1.166-1.641 2.12-.955.956-2.121 1.641-1.166.686-2.508 1.061-1.342.375-2.795.375-1.29 0-2.52-.305-1.23-.304-2.337-.884-1.108-.58-2.063-1.418-.955-.838-1.693-1.893H.997q-.411 0-.704-.293T0 17.004V6.996q0-.41.293-.703T.996 6h3.89q.739-1.055 1.694-1.893.955-.837 2.063-1.418 1.107-.58 2.337-.884Q12.21 1.5 13.5 1.5zm.75 1.535v8.215h8.215q-.14-1.64-.826-3.076-.686-1.436-1.782-2.531-1.095-1.096-2.537-1.782-1.441-.685-3.07-.826zm-5.262 7.57q0-.68-.228-1.166-.229-.486-.627-.79-.399-.305-.938-.446-.539-.14-1.172-.14H2.848v7.863h1.84v-2.742H5.93q.574 0 1.119-.17t.978-.493q.434-.322.698-.802.263-.48.263-1.114zM13.5 21q1.172 0 2.262-.287t2.056-.82q.967-.534 1.776-1.278.808-.744 1.418-1.664.61-.92.984-1.986.375-1.067.469-2.227h-9.703V3.035q-1.735.14-3.27.908T6.797 6h4.207q.41 0 .703.293t.293.703v10.008q0 .41-.293.703t-.703.293H6.797q.644.715 1.412 1.271.768.557 1.623.944.855.387 1.781.586Q12.54 21 13.5 21zM5.812 9.598q.575 0 .915.228.34.229.34.838 0 .27-.124.44-.123.17-.31.275-.188.105-.422.146-.234.041-.445.041H4.687V9.598Z"/></svg></div>
+        <p class="tool-card__name">PowerPoint</p>
+      </div>
     </div>
   </section>
 
@@ -354,82 +397,74 @@
     </ul>
   </section>
 
-  <!-- ======= CERTIFICATES (SCROLLYTELLING HORIZONTAL) ======= -->
-  <section id="certificates" class="hscroll-section hscroll-section--certs">
-    <div class="hscroll-sticky">
-      <div class="hscroll-header">
-        <p class="section__label">Proof of work</p>
-        <h2 class="section__title">Certificates</h2>
-        <p class="certificates__intro">Scans of certificates from the trainings above.</p>
       </div>
-      <div class="hscroll-viewport" id="certViewport">
-        <div class="hscroll-track" id="certTrack">
-          <figure class="cert-card hscroll-card">
-            <div class="cert-card__frame">
-              <img src="assets/certificates/git-fundamentals.jpg" alt="Certificate — GIT: From Zero to Hero" onerror="this.style.display='none'">
-              <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
-            </div>
-            <figcaption>GIT: From Zero to Hero <small>Nov 2023</small></figcaption>
-          </figure>
-          <figure class="cert-card hscroll-card">
-            <div class="cert-card__frame">
-              <img src="assets/certificates/chatgpt-society.jpg" alt="Certificate — The Power of ChatGPT in Society" onerror="this.style.display='none'">
-              <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
-            </div>
-            <figcaption>The Power of ChatGPT in Society <small>Dec 2023</small></figcaption>
-          </figure>
-          <figure class="cert-card hscroll-card">
-            <div class="cert-card__frame">
-              <img src="assets/certificates/adobe-genai.jpg" alt="Certificate — Maximizing Adobe's Gen AI for Social Media Management" onerror="this.style.display='none'">
-              <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
-            </div>
-            <figcaption>Adobe's Gen AI for Social Media <small>Dec 2023</small></figcaption>
-          </figure>
-          <figure class="cert-card hscroll-card">
-            <div class="cert-card__frame">
-              <img src="assets/certificates/generative-ai.jpg" alt="Certificate — Generative AI" onerror="this.style.display='none'">
-              <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
-            </div>
-            <figcaption>Generative AI <small>Mar 2024</small></figcaption>
-          </figure>
-          <figure class="cert-card hscroll-card">
-            <div class="cert-card__frame">
-              <img src="assets/certificates/ai-academic-writing.jpg" alt="Certificate — Leveraging AI Tools in Academic Writing" onerror="this.style.display='none'">
-              <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
-            </div>
-            <figcaption>AI Tools in Academic Writing <small>Mar 2024</small></figcaption>
-          </figure>
-          <figure class="cert-card hscroll-card">
-            <div class="cert-card__frame">
-              <img src="assets/certificates/data-privacy.jpg" alt="Certificate — Guardians of Privacy: Nurturing Data Awareness" onerror="this.style.display='none'">
-              <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
-            </div>
-            <figcaption>Guardians of Privacy <small>Apr 2024</small></figcaption>
-          </figure>
-          <figure class="cert-card hscroll-card">
-            <div class="cert-card__frame">
-              <img src="assets/certificates/6g-networks.jpg" alt="Certificate — The Vision of 6G Networks in the Future" onerror="this.style.display='none'">
-              <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
-            </div>
-            <figcaption>The Vision of 6G Networks <small>May 2024</small></figcaption>
-          </figure>
-          <figure class="cert-card hscroll-card">
-            <div class="cert-card__frame">
-              <img src="assets/certificates/technopreneurship.jpg" alt="Certificate — Understanding the Basics of Technopreneurship" onerror="this.style.display='none'">
-              <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
-            </div>
-            <figcaption>Basics of Technopreneurship <small>May 2024</small></figcaption>
-          </figure>
+    </div>
+  </section>
+
+  <!-- ======= CERTIFICATES (GRID) ======= -->
+  <section id="certificates" class="section reveal">
+    <div class="section__head">
+      <p class="section__label">Proof of work</p>
+      <h2 class="section__title">Certificates</h2>
+      <p class="certificates__intro">Scans of certificates from the trainings above.</p>
+    </div>
+    <div class="cert-grid">
+      <figure class="cert-card reveal reveal--scale tilt-el">
+        <div class="cert-card__frame">
+          <img src="assets/certificates/git-fundamentals.jpg" alt="Certificate — GIT: From Zero to Hero" onerror="this.style.display='none'">
+          <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
         </div>
-      </div>
-      <div class="hscroll-progress" aria-hidden="true">
-        <div class="hscroll-progress__fill" id="certHscrollFill"></div>
-      </div>
-      <div class="cert-carousel__controls">
-        <button class="cert-carousel__btn" id="certPrev" aria-label="Previous certificates">&#8249;</button>
-        <div class="cert-carousel__dots" id="certDots"></div>
-        <button class="cert-carousel__btn" id="certNext" aria-label="Next certificates">&#8250;</button>
-      </div>
+        <figcaption>GIT: From Zero to Hero <small>Nov 2023</small></figcaption>
+      </figure>
+      <figure class="cert-card reveal reveal--scale tilt-el" style="transition-delay: 0.1s;">
+        <div class="cert-card__frame">
+          <img src="assets/certificates/chatgpt-society.jpg" alt="Certificate — The Power of ChatGPT in Society" onerror="this.style.display='none'">
+          <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
+        </div>
+        <figcaption>The Power of ChatGPT in Society <small>Dec 2023</small></figcaption>
+      </figure>
+      <figure class="cert-card reveal reveal--scale tilt-el" style="transition-delay: 0.2s;">
+        <div class="cert-card__frame">
+          <img src="assets/certificates/adobe-genai.jpg" alt="Certificate — Maximizing Adobe's Gen AI for Social Media Management" onerror="this.style.display='none'">
+          <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
+        </div>
+        <figcaption>Adobe's Gen AI for Social Media <small>Dec 2023</small></figcaption>
+      </figure>
+      <figure class="cert-card reveal reveal--scale tilt-el">
+        <div class="cert-card__frame">
+          <img src="assets/certificates/generative-ai.jpg" alt="Certificate — Generative AI" onerror="this.style.display='none'">
+          <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
+        </div>
+        <figcaption>Generative AI <small>Mar 2024</small></figcaption>
+      </figure>
+      <figure class="cert-card reveal reveal--scale tilt-el" style="transition-delay: 0.1s;">
+        <div class="cert-card__frame">
+          <img src="assets/certificates/ai-academic-writing.jpg" alt="Certificate — Leveraging AI Tools in Academic Writing" onerror="this.style.display='none'">
+          <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
+        </div>
+        <figcaption>AI Tools in Academic Writing <small>Mar 2024</small></figcaption>
+      </figure>
+      <figure class="cert-card reveal reveal--scale tilt-el" style="transition-delay: 0.2s;">
+        <div class="cert-card__frame">
+          <img src="assets/certificates/data-privacy.jpg" alt="Certificate — Guardians of Privacy: Nurturing Data Awareness" onerror="this.style.display='none'">
+          <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
+        </div>
+        <figcaption>Guardians of Privacy <small>Apr 2024</small></figcaption>
+      </figure>
+      <figure class="cert-card reveal reveal--scale tilt-el">
+        <div class="cert-card__frame">
+          <img src="assets/certificates/6g-networks.jpg" alt="Certificate — The Vision of 6G Networks in the Future" onerror="this.style.display='none'">
+          <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
+        </div>
+        <figcaption>The Vision of 6G Networks <small>May 2024</small></figcaption>
+      </figure>
+      <figure class="cert-card reveal reveal--scale tilt-el" style="transition-delay: 0.1s;">
+        <div class="cert-card__frame">
+          <img src="assets/certificates/technopreneurship.jpg" alt="Certificate — Understanding the Basics of Technopreneurship" onerror="this.style.display='none'">
+          <div class="cert-card__placeholder"><span>📄</span><span>Add image</span></div>
+        </div>
+        <figcaption>Basics of Technopreneurship <small>May 2024</small></figcaption>
+      </figure>
     </div>
   </section>
 
@@ -473,15 +508,33 @@
       <div class="contact__direct">
         <p class="contact__direct-label">Direct channels</p>
         <a class="contact__link" href="mailto:aaron.malubay@gmail.com">
-          <span class="contact__link-icon">✉️</span> aaron.malubay@gmail.com
+          <span class="contact__link-icon">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          </span> 
+          aaron.malubay@gmail.com
         </a>
-        <a class="contact__link" href="https://www.linkedin.com/in/aaronmalubay/" target="_blank" rel="noopener">
-          <span class="contact__link-icon">🔗</span> linkedin.com/in/aaronmalubay
-        </a>
-        <a class="contact__link" href="https://github.com/Azonixxx" target="_blank" rel="noopener">
-          <span class="contact__link-icon">💻</span> github.com/Azonixxx
-        </a>
-        <p class="contact__note">📍 Metro Manila, Philippines — open to on-site &amp; hybrid IT roles</p>
+        <div class="contact__socials" style="display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap;">
+          <a class="btn btn--ghost" href="https://www.linkedin.com/in/aaronmalubay/" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 8px;">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            LinkedIn
+          </a>
+          <a class="btn btn--ghost" href="https://github.com/Azonixxx" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 8px;">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a class="btn btn--ghost" href="https://facebook.com/Iam.zanity" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 8px;">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            Facebook
+          </a>
+          <a class="btn btn--ghost" href="https://tiktok.com/@azonix09" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 8px;">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93v7.2c0 1.61-.41 3.23-1.24 4.58-1.5 2.45-4.23 3.96-7.1 3.98-2.87.03-5.63-1.42-7.16-3.83-1.19-1.85-1.46-4.21-.73-6.26.7-1.96 2.18-3.56 4.09-4.39 1.94-.84 4.19-.87 6.13-.15v4.06c-.84-.28-1.74-.35-2.61-.16-1.67.36-3 1.8-3.26 3.48-.12.82.02 1.68.45 2.4.74 1.25 2.21 1.93 3.65 1.8 1.48-.14 2.76-1.15 3.28-2.52.27-.71.39-1.48.37-2.25V.02z"/></svg>
+            TikTok
+          </a>
+        </div>
+        <p class="contact__note" style="margin-top: 28px;">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="margin-right: 6px; vertical-align: text-bottom;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          Metro Manila, Philippines — open to on-site &amp; hybrid IT roles
+        </p>
       </div>
     </div>
   </section>
@@ -504,12 +557,6 @@
 
 
 <div id="themeRipple" aria-hidden="true"></div>
-
-<!-- Virtual Pet Container -->
-<div id="virtualPet" class="virtual-pet" aria-hidden="true">
-  <div class="virtual-pet__sprite">🐕</div>
-  <div class="virtual-pet__speech" id="virtualPetSpeech">Hi!</div>
-</div>
 
 <script src="script.js"></script>
 </body>

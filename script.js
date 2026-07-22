@@ -12,94 +12,130 @@
     window.matchMedia('(pointer:fine)').matches && window.matchMedia('(min-width:900px)').matches;
 
   /* ═══════════════════════════════════════════════════════
-     1. LOADER — IT BOOT SEQUENCE
+     1. LOADER — AARON CHR GLOW
      ═══════════════════════════════════════════════════════ */
-  const bootLines = [
-    { tag: 'BOOT', text: 'Initializing system kernel...', delay: 400 },
-    { tag: 'LOAD', text: 'Loading hardware drivers...', delay: 650 },
-    { tag: 'SCAN', text: 'Detecting peripherals...', delay: 900 },
-    { tag: 'INIT', text: 'Starting network services...', delay: 1150 },
-    { tag: 'LOAD', text: 'Loading portfolio modules...', delay: 1400 },
-    { tag: 'BUILD', text: 'Compiling assets...', delay: 1700 },
-    { tag: 'READY', text: 'All systems operational.', delay: 2000 },
+  const QUIRKY_MESSAGES = [
+    "Untangling the cables…",
+    "Microwaving cold coffee…",
+    "Finding the TV remote…",
+    "Spinning the hamster wheel…",
+    "Watering the virtual plants…",
+    "Looking for my keys…",
+    "Trying to remember my password…",
+    "Convincing the computer to work…",
+    "Brewing a fresh pot…",
+    "Downloading more RAM…",
+    "Reticulating splines…",
+    "Feeding the server hamsters…",
+    "Searching for motivation…",
+    "Generating witty loading messages…",
+    "Aligning the pixels…",
+    "Dusting off the mainframe…",
+    "Polishing the screen…",
+    "Warming up the engines…",
+    "Recalibrating the flux capacitor…"
   ];
+  
+  // Pick 4 random quirky messages
+  const STATUS_MESSAGES = [...QUIRKY_MESSAGES].sort(() => 0.5 - Math.random()).slice(0, 4);
+  // Always end with a reassuring final message
+  STATUS_MESSAGES.push("Almost ready…");
 
   function runLoader() {
-    const loader = $('#loader');
-    const loaderBody = $('#loaderBody');
+    const loader       = $('#loader');
+    const loaderBrand  = $('#loaderBrand');
     const progressFill = $('#loaderProgress');
-    const percentEl = $('#loaderPercent');
-    const welcomeEl = $('#loaderWelcome');
+    const statusEl     = $('#loaderStatus');
+    const indicator    = $('#loaderIndicator');
 
     if (!loader || prefersReducedMotion()) {
-      // Skip loader entirely
       if (loader) loader.classList.add('is-done');
       document.body.classList.remove('is-loading');
       initSite();
       return;
     }
 
-    const totalLines = bootLines.length;
+    // Phase 1: After brand fade-in CSS animation completes (~2s), add glow
+    setTimeout(() => {
+      loaderBrand.classList.add('is-glowing');
+    }, 2000);
 
-    // Add cursor to body
-    const cursor = document.createElement('span');
-    cursor.className = 'loader__cursor';
-    loaderBody.appendChild(cursor);
+    // Phase 2: Cycle through status messages with progress bar
+    let msgIndex = 0;
+    const totalMessages = STATUS_MESSAGES.length;
 
-    bootLines.forEach((line, i) => {
+    function advanceStatus() {
+      if (msgIndex >= totalMessages) {
+        // All messages done — begin exit
+        beginExit();
+        return;
+      }
+
+      statusEl.textContent = STATUS_MESSAGES[msgIndex];
+      const pct = Math.round(((msgIndex + 1) / totalMessages) * 100);
+      progressFill.style.width = pct + '%';
+      msgIndex++;
+
+      const delay = 450 + Math.random() * 350;
+      setTimeout(advanceStatus, delay);
+    }
+
+    // Start status messages after indicator fades in (0.9s CSS delay + 0.6s animation)
+    setTimeout(advanceStatus, 1600);
+
+    function beginExit() {
+      // Brief pause at 100% before flying
       setTimeout(() => {
-        // Create the line element
-        const el = document.createElement('p');
-        el.className = 'loader__line';
-        el.innerHTML = `
-          <span>
-            <span class="loader__line-tag">[${line.tag}]</span>
-            <span class="loader__line-text">${line.text}</span>
-          </span>
-          <span class="loader__line-status">✓</span>
-        `;
+        // Measure target: the nav brand element
+        const navBrand = $('.nav__brand');
+        if (!navBrand) {
+          // Fallback: just fade out
+          loader.classList.add('is-done');
+          document.body.classList.remove('is-loading');
+          initSite();
+          return;
+        }
 
-        // Insert before cursor
-        loaderBody.insertBefore(el, cursor);
+        // Temporarily make site content visible so we can measure nav position
+        document.body.classList.remove('is-loading');
 
-        // Status check appears 200ms later
-        const status = el.querySelector('.loader__line-status');
+        // Force reflow to get accurate measurements
+        void navBrand.offsetHeight;
+
+        const navRect   = navBrand.getBoundingClientRect();
+        const brandRect = loaderBrand.getBoundingClientRect();
+
+        // Calculate how far to move and how much to scale
+        const scaleRatio = navRect.height / brandRect.height;
+        const dx = (navRect.left + navRect.width / 2) - (brandRect.left + brandRect.width / 2);
+        const dy = (navRect.top + navRect.height / 2) - (brandRect.top + brandRect.height / 2);
+
+        // Set CSS custom properties for the fly animation
+        loaderBrand.style.setProperty('--fly-x', dx + 'px');
+        loaderBrand.style.setProperty('--fly-y', dy + 'px');
+        loaderBrand.style.setProperty('--fly-scale', scaleRatio);
+
+        // Trigger exit
+        loader.classList.add('is-exiting');
+
+        // After fly animation completes, clean up
         setTimeout(() => {
-          status.style.animationDelay = '0ms';
-          status.style.animationPlayState = 'running';
-        }, 180);
+          loader.classList.add('is-hidden');
+          loader.remove();
+          initSite();
+        }, 950);
 
-        // Update progress
-        const progress = Math.round(((i + 1) / totalLines) * 100);
-        progressFill.style.width = progress + '%';
-        percentEl.textContent = progress + '%';
+      }, 500);
+    }
 
-        // Scroll terminal body down
-        loaderBody.scrollTop = loaderBody.scrollHeight;
-      }, line.delay);
-    });
-
-    // Show welcome message
+    // Fallback: force-remove loader after 8s
     setTimeout(() => {
-      cursor.remove();
-      welcomeEl.classList.add('is-visible');
-    }, 2400);
-
-    // Fade out loader & unlock page
-    setTimeout(() => {
-      loader.classList.add('is-done');
-      document.body.classList.remove('is-loading');
-      initSite();
-    }, 3200);
-
-    // Fallback: force-remove loader after 5s
-    setTimeout(() => {
-      if (!loader.classList.contains('is-done')) {
+      if (!loader.classList.contains('is-exiting') && !loader.classList.contains('is-done')) {
         loader.classList.add('is-done');
         document.body.classList.remove('is-loading');
         initSite();
       }
-    }, 5000);
+    }, 8000);
   }
 
 
@@ -463,245 +499,6 @@
   }
 
 
-  /* ═══════════════════════════════════════════════════════
-     12. HORIZONTAL SCROLL — SKILLS SECTION
-     ═══════════════════════════════════════════════════════ */
-  function initHorizontalScroll() {
-    const section = $('.hscroll-section:not(.hscroll-section--certs)');
-    const track = $('#skillsTrack');
-    const fill = $('#hscrollFill');
-    const hint = $('.hscroll-hint');
-
-    if (!section || !track) return;
-
-    const mq = window.matchMedia('(max-width: 768px)');
-    if (mq.matches) return;
-
-    function update() {
-      if (mq.matches) {
-        track.style.transform = '';
-        if (fill) fill.style.width = '0%';
-        return;
-      }
-
-      const rect = section.getBoundingClientRect();
-      const sectionHeight = section.offsetHeight;
-      const vh = window.innerHeight;
-      const scrollable = sectionHeight - vh;
-
-      if (scrollable <= 0) return;
-
-      const progress = Math.max(0, Math.min(1, -rect.top / scrollable));
-
-      const trackWidth = track.scrollWidth;
-      const containerWidth = track.parentElement.offsetWidth;
-      const maxScroll = Math.max(0, trackWidth - containerWidth);
-
-      const easedProgress = easeInOutCubic(progress);
-      track.style.transform = `translateX(${-easedProgress * maxScroll}px)`;
-
-      if (fill) fill.style.width = (progress * 100) + '%';
-
-      if (hint) {
-        hint.style.opacity = progress > 0.05 ? '0' : '';
-      }
-    }
-
-    function easeInOutCubic(t) {
-      return t < 0.5
-        ? 4 * t * t * t
-        : 1 - Math.pow(-2 * t + 2, 3) / 2;
-    }
-
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update, { passive: true });
-
-    mq.addEventListener('change', () => {
-      if (mq.matches) {
-        track.style.transform = '';
-        if (fill) fill.style.width = '0%';
-      } else {
-        update();
-      }
-    });
-
-    requestAnimationFrame(update);
-  }
-
-
-  /* ═══════════════════════════════════════════════════════
-     13. PARALLAX — HERO ELEMENTS
-     ═══════════════════════════════════════════════════════ */
-  function initParallax() {
-    if (prefersReducedMotion()) return;
-    if (window.innerWidth <= 768) return; // Disable parallax on mobile
-
-    const els = $$('.parallax-el');
-    if (!els.length) return;
-
-    function update() {
-      const scrollY = window.scrollY;
-      const vh = window.innerHeight;
-
-      if (scrollY > vh * 1.2) return;
-
-      els.forEach((el) => {
-        const speed = parseFloat(el.dataset.speed) || 0.2;
-        const offset = scrollY * speed;
-        el.style.transform = `translateY(${offset}px)`;
-      });
-    }
-
-    window.addEventListener('scroll', update, { passive: true });
-  }
-
-
-  /* ═══════════════════════════════════════════════════════
-     14. CERTIFICATES — SCROLLYTELLING TRACK (desktop)
-          + swipeable row / drag-to-scroll fallback (mobile)
-     ═══════════════════════════════════════════════════════ */
-  function initCertScrollytelling() {
-    const section = $('.hscroll-section--certs');
-    const viewport = $('#certViewport');
-    const track = $('#certTrack');
-    const fill = $('#certHscrollFill');
-    const prevBtn = $('#certPrev');
-    const nextBtn = $('#certNext');
-    const dotsContainer = $('#certDots');
-
-    if (!section || !viewport || !track) return;
-
-    const cards = $$('.cert-card', track);
-    const mq = window.matchMedia('(max-width: 768px)');
-
-    // Build dots (used in both modes)
-    function buildDots(count) {
-      if (!dotsContainer) return;
-      dotsContainer.innerHTML = '';
-      for (let i = 0; i < count; i++) {
-        const dot = document.createElement('button');
-        dot.className = 'cert-carousel__dot';
-        dot.setAttribute('aria-label', `Go to certificate ${i + 1}`);
-        if (i === 0) dot.classList.add('is-active');
-        dotsContainer.appendChild(dot);
-      }
-    }
-
-    /* ---------- DESKTOP: pinned scroll-driven horizontal track ---------- */
-    function updateDesktop() {
-      const rect = section.getBoundingClientRect();
-      const sectionHeight = section.offsetHeight;
-      const vh = window.innerHeight;
-      const scrollable = sectionHeight - vh;
-      if (scrollable <= 0) return;
-
-      const progress = Math.max(0, Math.min(1, -rect.top / scrollable));
-      const trackWidth = track.scrollWidth;
-      const containerWidth = track.parentElement.offsetWidth;
-      const maxScroll = Math.max(0, trackWidth - containerWidth);
-
-      const eased = progress < 0.5 ? 4 * progress ** 3 : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-      track.style.transform = `translateX(${-eased * maxScroll}px)`;
-
-      if (fill) fill.style.width = (progress * 100) + '%';
-
-      if (dotsContainer) {
-        const dots = $$('.cert-carousel__dot', dotsContainer);
-        const activeIdx = Math.min(dots.length - 1, Math.round(progress * (dots.length - 1)));
-        dots.forEach((d, i) => d.classList.toggle('is-active', i === activeIdx));
-      }
-    }
-
-    function scrollSectionToProgress(p) {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.offsetHeight;
-      const vh = window.innerHeight;
-      const scrollable = sectionHeight - vh;
-      window.scrollTo({ top: sectionTop + p * scrollable, behavior: 'smooth' });
-    }
-
-    /* ---------- MOBILE: native swipeable row + drag ---------- */
-    let isDragging = false, startX = 0, scrollStart = 0;
-
-    function enableMobileMode() {
-      track.style.transform = '';
-      buildDots(cards.length);
-
-      function updateMobileDots() {
-        if (!dotsContainer) return;
-        const maxScroll = viewport.scrollWidth - viewport.offsetWidth;
-        const progress = maxScroll > 0 ? viewport.scrollLeft / maxScroll : 0;
-        const dots = $$('.cert-carousel__dot', dotsContainer);
-        const activeIdx = Math.round(progress * (dots.length - 1));
-        dots.forEach((d, i) => d.classList.toggle('is-active', i === activeIdx));
-      }
-      viewport.addEventListener('scroll', updateMobileDots, { passive: true });
-      updateMobileDots();
-
-      if (dotsContainer) {
-        $$('.cert-carousel__dot', dotsContainer).forEach((dot, i) => {
-          dot.addEventListener('click', () => {
-            const card = cards[i];
-            if (card) viewport.scrollTo({ left: card.offsetLeft - 12, behavior: 'smooth' });
-          });
-        });
-      }
-    }
-
-    function bindArrowsAndDrag() {
-      if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-          if (mq.matches) {
-            viewport.scrollBy({ left: -240, behavior: 'smooth' });
-          } else {
-            const dots = dotsContainer ? $$('.cert-carousel__dot', dotsContainer) : [];
-            const activeIdx = dots.findIndex((d) => d.classList.contains('is-active'));
-            const target = Math.max(0, (activeIdx - 1)) / Math.max(1, dots.length - 1);
-            scrollSectionToProgress(target);
-          }
-        });
-      }
-      if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-          if (mq.matches) {
-            viewport.scrollBy({ left: 240, behavior: 'smooth' });
-          } else {
-            const dots = dotsContainer ? $$('.cert-carousel__dot', dotsContainer) : [];
-            const activeIdx = dots.findIndex((d) => d.classList.contains('is-active'));
-            const target = Math.min(1, (activeIdx + 1) / Math.max(1, dots.length - 1));
-            scrollSectionToProgress(target);
-          }
-        });
-      }
-
-      // Drag to scroll (desktop track, when not on touch)
-      viewport.addEventListener('mousedown', (e) => {
-        if (!mq.matches) return; // desktop uses pinned scroll, not drag
-      });
-    }
-
-    function setup() {
-      buildDots(mq.matches ? cards.length : Math.min(cards.length, 8));
-      if (mq.matches) {
-        enableMobileMode();
-      } else {
-        requestAnimationFrame(updateDesktop);
-      }
-    }
-
-    window.addEventListener('scroll', () => {
-      if (!mq.matches) updateDesktop();
-    }, { passive: true });
-
-    window.addEventListener('resize', () => {
-      if (!mq.matches) updateDesktop();
-    }, { passive: true });
-
-    mq.addEventListener('change', setup);
-    bindArrowsAndDrag();
-    setup();
-  }
-
 
   /* ═══════════════════════════════════════════════════════
      15. TIMELINE — DRAW-IN LINE & ACTIVE ICON GLOW
@@ -831,6 +628,24 @@
 
 
   /* ═══════════════════════════════════════════════════════
+     19. ABOUT CARD MOUSE GLOW
+     ═══════════════════════════════════════════════════════ */
+  function initAboutGlow() {
+    if (!isFinePointer()) return;
+    const cards = $$('.about__card');
+    cards.forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+  }
+
+
+  /* ═══════════════════════════════════════════════════════
      INIT — Called after loader completes
      ═══════════════════════════════════════════════════════ */
   let siteInitialized = false;
@@ -840,6 +655,7 @@
     siteInitialized = true;
 
     initCanvas();
+    initAboutGlow();
     initThemeToggle();
     initScrollProgress();
     initReveals();
@@ -849,9 +665,7 @@
     initBackToTop();
     initContactForm();
     initYear();
-    initHorizontalScroll();
     initParallax();
-    initCertScrollytelling();
     initTimelineDrawIn();
     initCursorGlow();
     initMagneticButtons();
